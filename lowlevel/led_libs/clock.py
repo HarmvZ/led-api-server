@@ -33,7 +33,6 @@ LED_INVERT     = False   # True to invert the signal (when using NPN transistor 
 LED_CHANNEL    = 0       # set to '1' for GPIOs 13, 19, 41, 45 or 53
 
 
-
 # Define functions which animate LEDs in various ways.
 """Wipe color across display a pixel at a time."""
 def colorWipe(strip, color):
@@ -79,27 +78,24 @@ def create_binary_time_matrix():
 
     return matrix
 
-def refreshTime(strip):
+
+def refresh_time(strip):
     """Set time to current time on led pixels"""
     matrix = create_binary_time_matrix()
     write_matrix_to_strip(strip, matrix)
 
 
-
-
 # Main program logic follows:
-if __name__ == '__main__':
+def start_clock():
     # Create NeoPixel object with appropriate configuration.
     strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
     # Intialize the library (must be called once before other functions).
     strip.begin()
 
     try:
-
         while True:
-            refreshTime(strip)
+            refresh_time(strip)
             time.sleep(1)
-
-    except KeyboardInterrupt:
+    except Exception:
         colorWipe(strip, Color(0, 0, 0))
 
