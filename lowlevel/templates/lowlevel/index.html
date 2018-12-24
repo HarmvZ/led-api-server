@@ -1,0 +1,9 @@
+{% if alarms %}
+    <ul>
+    {% for alarm in alarms %}
+        <li><a href="/polls/{{ alarm.id }}/">{{ alarm.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No alarms are set.</p>
+{% endif %}
