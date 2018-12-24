@@ -1,0 +1,8 @@
+version: '3'
+services:
+  rpi:
+    build:
+      context: .
+      dockerfile: ./dockerfiles/Dockerfile
+    ports:
+      - "8000:8000"
