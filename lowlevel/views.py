@@ -5,7 +5,6 @@ from .models import Alarm
 from .led_libs import clock
 
 
-
 class IndexView(generic.ListView):
     template_name = 'lowlevel/index.html'
     context_object_name = 'alarms'
@@ -15,8 +14,8 @@ class IndexView(generic.ListView):
         return Alarm.objects.all()
 
 
-@csrf_exempt
 class ClockView(View):
+    @csrf_exempt
     def post(self, request, *args, **kwargs):
         # show clock on leds, run never ending function in thread
         clock_thread = threading.Thread(target=clock.start_clock())
