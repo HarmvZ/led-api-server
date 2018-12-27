@@ -2,8 +2,9 @@ import threading
 from django.views import generic, View
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse
 from .models import Alarm
-from .led_libs import clock
+from .led_libs.clock import LedControl
 
 
 class IndexView(generic.ListView):
@@ -17,7 +18,14 @@ class IndexView(generic.ListView):
 
 @method_decorator(csrf_exempt, name='dispatch')
 class ClockView(View):
+    led_control = LedControl()
+
     def post(self, request, *args, **kwargs):
-        # show clock on leds, run never ending function in thread
-        clock_thread = threading.Thread(target=clock.start_clock())
-        clock_thread.start()
+        action = request.POST["action"]
+        if action == "start":
+            self.led_control.start_clock()
+        if action == "stop":
+            self.led_control.stop()
+
+        return HttpResponse(f"Ledcontrol: {action}")
+
