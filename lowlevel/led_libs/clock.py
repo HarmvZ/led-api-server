@@ -98,6 +98,7 @@ class LedControl:
         def start_clock(self):
             # show clock on leds, run never ending function in thread
             self.thread = Process(target=self.run_clock())
+            self.thread.daemon = True
             self.thread.start()
 
         def run_clock(self):
