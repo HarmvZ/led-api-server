@@ -43,7 +43,7 @@ class LedControl:
             # Intialize the library (must be called once before other functions).
             self.strip.begin()
 
-            self.thread = None
+            self.process = None
 
         def color_wipe(self, color):
             """Wipe color across display a pixel at a time."""
@@ -53,6 +53,9 @@ class LedControl:
 
         def wipe_clear(self):
             self.color_wipe(Color(0, 0, 0))
+
+        def fill(self, r, g, b):
+            self.color_wipe(Color(r, g, b))
 
         def write_matrix_to_strip(self, matrix):
             height, width = matrix.shape
@@ -96,10 +99,10 @@ class LedControl:
             self.write_matrix_to_strip(matrix)
 
         def start_clock(self):
-            # show clock on leds, run never ending function in thread
-            self.thread = Process(target=self.run_clock())
-            self.thread.daemon = True
-            self.thread.start()
+            # show clock on leds, run never ending function in process
+            self.process = Process(target=self.run_clock())
+            self.process.daemon = True
+            self.process.start()
 
         def run_clock(self):
             try:
@@ -110,9 +113,9 @@ class LedControl:
                 self.wipe_clear()
 
         def stop(self):
-            if self.thread.is_alive():
-                self.thread.terminate()
-                self.wipe_clear()
+            if self.process is not None and self.process.is_alive():
+                self.process.terminate()
+            self.wipe_clear()
 
     instance = None
 

@@ -29,3 +29,11 @@ class ClockView(View):
 
         return HttpResponse(action)
 
+
+class ColorView(View):
+    led_control = LedControl()
+
+    def get(self, request):
+        self.led_control.fill(request.GET["r"], request.GET["g"], request.GET["b"])
+
+
