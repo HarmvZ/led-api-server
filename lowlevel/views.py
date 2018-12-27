@@ -34,6 +34,10 @@ class ColorView(View):
     led_control = LedControl()
 
     def get(self, request):
-        self.led_control.fill(int(request.GET["r"]), int(request.GET["g"]), int(request.GET["b"]))
+        r = request.GET["r"]
+        g = request.GET["g"]
+        b = request.GET["b"]
+        self.led_control.fill(int(r), int(g), int(b))
+        return HttpResponse("New color set: ({}, {}, {}).".format(r, g, b))
 
 

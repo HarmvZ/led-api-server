@@ -2,12 +2,23 @@
 
 {% block content %}
     <a class="btn btn-primary set-color-btn" data-color="0,0,0">Off</a>
-    <a class="btn btn-primary set-color-btn" data-color="1,0,0">Off</a>
-    <a class="btn btn-primary set-color-btn" data-color="0,1,0">Off</a>
-    <a class="btn btn-primary set-color-btn" data-color="0,0,1">Off</a>
-    <a class="btn btn-primary set-color-btn" data-color="255,0,0">Off</a>
-    <a class="btn btn-primary set-color-btn" data-color="0,255,0">Off</a>
-    <a class="btn btn-primary set-color-btn" data-color="0,0,255">Off</a>
+    <a class="btn btn-primary set-color-btn" data-color="1,0,0">1,0,0</a>
+    <a class="btn btn-primary set-color-btn" data-color="0,1,0">0,1,0</a>
+    <a class="btn btn-primary set-color-btn" data-color="0,0,1">0,0,1</a>
+    <a class="btn btn-primary set-color-btn" data-color="255,0,0">255,0,0</a>
+    <a class="btn btn-primary set-color-btn" data-color="0,255,0">0,255,0</a>
+    <a class="btn btn-primary set-color-btn" data-color="0,0,255">0,0,255</a>
+
+
+    <form class="form-inline">
+      <label class="sr-only" for="inlineFormInput">Red</label>
+      <input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputR" placeholder="255">
+      <label class="sr-only" for="inlineFormInput">Green</label>
+      <input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputG" placeholder="255">
+      <label class="sr-only" for="inlineFormInput">Blue</label>
+      <input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputB" placeholder="255">
+      <button type="submit" class="btn btn-primary set-variable-color-btn">Set</button>
+    </form>
 
 
     {% if alarms %}
@@ -26,6 +37,13 @@
 <script type="application/javascript">
     $(".set-color-btn").click((e) => {
         const colors = e.currentTarget.dataset["color"].split(",")
+        $.get(`/show_color?r=${colors[0]}&g=${colors[1]}&b=${colors[2]}`, () => {
+            console.log(colors, "done")
+        })
+    })
+
+    $(".set-variable-color-btn").click((e) => {
+        const colors = [$('#inlineFormInputR').val(), $('#inlineFormInputG').val(), $('#inlineFormInputB').val()]
         $.get(`/show_color?r=${colors[0]}&g=${colors[1]}&b=${colors[2]}`, () => {
             console.log(colors, "done")
         })
