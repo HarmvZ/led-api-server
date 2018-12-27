@@ -1,13 +1,13 @@
 {%  extends 'base.html' %}
 
 {% block content %}
-    <a class="btn btn-primary set-color-btn" data-color="(0,0,0)">Off</a>
-    <a class="btn btn-primary set-color-btn" data-color="(1,0,0)">Off</a>
-    <a class="btn btn-primary set-color-btn" data-color="(0,1,0)">Off</a>
-    <a class="btn btn-primary set-color-btn" data-color="(0,0,1)">Off</a>
-    <a class="btn btn-primary set-color-btn" data-color="(255,0,0)">Off</a>
-    <a class="btn btn-primary set-color-btn" data-color="(0,255,0)">Off</a>
-    <a class="btn btn-primary set-color-btn" data-color="(0,0,255)">Off</a>
+    <a class="btn btn-primary set-color-btn" data-color="0,0,0">Off</a>
+    <a class="btn btn-primary set-color-btn" data-color="1,0,0">Off</a>
+    <a class="btn btn-primary set-color-btn" data-color="0,1,0">Off</a>
+    <a class="btn btn-primary set-color-btn" data-color="0,0,1">Off</a>
+    <a class="btn btn-primary set-color-btn" data-color="255,0,0">Off</a>
+    <a class="btn btn-primary set-color-btn" data-color="0,255,0">Off</a>
+    <a class="btn btn-primary set-color-btn" data-color="0,0,255">Off</a>
 
 
     {% if alarms %}
@@ -19,4 +19,16 @@
     {% else %}
         <p>No alarms are set.</p>
     {% endif %}
+{% endblock %}
+
+
+{% block javascript %}
+<script type="application/javascript">
+    $(".set-color-btn").click((e) => {
+        const colors = e.currentTarget.dataset["color"].split(",")
+        $.get("/show_color?r=${colors[0]}&g=${colors[1]}&b=${colors[2]}", () => {
+            console.log(colors, "done")
+        })
+    })
+</script>
 {% endblock %}
