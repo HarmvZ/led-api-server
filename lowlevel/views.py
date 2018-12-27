@@ -34,6 +34,6 @@ class ColorView(View):
     led_control = LedControl()
 
     def get(self, request):
-        self.led_control.fill(request.GET["r"], request.GET["g"], request.GET["b"])
+        self.led_control.fill(int(request.GET["r"]), int(request.GET["g"]), int(request.GET["b"]))
 
 
