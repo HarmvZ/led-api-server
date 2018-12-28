@@ -2,12 +2,28 @@
 
 {% block content %}
     <h3>Set color</h3>
-    <h4>Static</h4>
-    {%  for color in colors %}
-        <a class="btn btn-primary set-color-btn" data-color="{{ color }}">{{ color }}</a>
-    {% endfor %}
+    <div class="btn-group btn-group-lg" role="group">
+        {%  for color in colors %}
+            <a
+                class="btn btn-primary set-color-btn"
+                style="background-color: rgb({{ color }}); border-color: rgb({{  color }});"
+                data-color="{{ color }}"
+            >{{ color }}</a>
+        {% endfor %}
+    </div>
 
-    <h4>Variable</h4>
+    <h3>Transition color</h3>
+    <div class="btn-group btn-group-lg" role="group">
+        {%  for color in colors %}
+            <a
+                class="btn btn-primary transition-color-btn"
+                style="background-color: rgb({{ color }}); border-color: rgb({{  color }});"
+                data-color="{{ color }}"
+            >{{ color }}</a>
+        {% endfor %}
+    </div>
+
+    <h3>Set/Transition variable</h3>
     <form class="form-group">
       <label class="sr-only" for="inlineFormInput">Red (0-255)</label>
       <input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputR" value="255">
@@ -23,11 +39,6 @@
       <a class="btn btn-primary btn-block transition-variable-color-btn">Transition</a>
     </form>
 
-    <h3>Transition color</h3>
-    <h4>Static</h4>
-    {%  for color in colors %}
-        <a class="btn btn-primary transition-color-btn" data-color="{{ color }}">{{ color }}</a>
-    {% endfor %}
 
     {% if alarms %}
         <ul>
