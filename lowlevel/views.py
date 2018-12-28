@@ -4,7 +4,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from .models import Alarm
-from .led_libs.clock import LedControl
+from .led_libs.led_control import LedControl
 
 
 class IndexView(generic.ListView):
@@ -53,4 +53,15 @@ class ColorView(View):
         g = request.GET["g"]
         b = request.GET["b"]
         self.led_control.fill(int(r), int(g), int(b))
+        return HttpResponse("New color set: ({}, {}, {}).".format(r, g, b))
+
+
+class TransitionColorView(View):
+    led_control = LedControl()
+
+    def get(self, request):
+        r = request.GET["r"]
+        g = request.GET["g"]
+        b = request.GET["b"]
+        self.led_control.transition_to_color(int(r), int(g), int(b), steps=500, timestep=50)
         return HttpResponse("New color set: ({}, {}, {}).".format(r, g, b))

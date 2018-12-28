@@ -1,10 +1,13 @@
 {%  extends 'base.html' %}
 
 {% block content %}
+    <h3>Set color</h3>
+    <h4>Static</h4>
     {%  for color in colors %}
         <a class="btn btn-primary btn-block set-color-btn" data-color="{{ color }}">{{ color }}</a>
     {% endfor %}
 
+    <h4>Variable</h4>
     <form class="form-group">
       <label class="sr-only" for="inlineFormInput">Red</label>
       <input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputR" value="255">
@@ -13,8 +16,14 @@
       <label class="sr-only" for="inlineFormInput">Blue</label>
       <input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputB" value="255">
       <a class="btn btn-primary set-variable-color-btn">Set</a>
+      <a class="btn btn-primary transition-variable-color-btn">Transition</a>
     </form>
 
+    <h3>Transition color</h3>
+    <h4>Static</h4>
+    {%  for color in colors %}
+        <a class="btn btn-primary btn-block transition-color-btn" data-color="{{ color }}">{{ color }}</a>
+    {% endfor %}
 
     {% if alarms %}
         <ul>
@@ -30,14 +39,14 @@
 
 {% block javascript %}
 <script type="application/javascript">
-    $(".set-color-btn").click((e) => {
+    $(".transition-color-btn").click((e) => {
         const colors = e.currentTarget.dataset["color"].split(",")
         $.get(`/show_color?r=${colors[0]}&g=${colors[1]}&b=${colors[2]}`, () => {
             console.log(colors, "done")
         })
     })
 
-    $(".set-variable-color-btn").click((e) => {
+    $(".transition-variable-color-btn").click((e) => {
         const colors = [$('#inlineFormInputR').val(), $('#inlineFormInputG').val(), $('#inlineFormInputB').val()]
         $.get(`/show_color?r=${colors[0]}&g=${colors[1]}&b=${colors[2]}`, () => {
             console.log(colors, "done")
