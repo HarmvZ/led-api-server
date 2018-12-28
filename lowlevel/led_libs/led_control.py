@@ -112,7 +112,7 @@ class LedControl:
                 color_deltas[i] = current_colors[i] - np.array([r, g, b])
 
             for i in range(steps):
-                new_colors = (current_colors - color_deltas / steps * i).astype(int)
+                new_colors = (current_colors - color_deltas / (steps - 1) * i).astype(int)
                 self.fill_colors(new_colors)
                 time.sleep(timestep / 1000)
 
