@@ -9,12 +9,16 @@
 
     <h4>Variable</h4>
     <form class="form-group">
-      <label class="sr-only" for="inlineFormInput">Red</label>
+      <label class="sr-only" for="inlineFormInput">Red (0-255)</label>
       <input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputR" value="255">
-      <label class="sr-only" for="inlineFormInput">Green</label>
+      <label class="sr-only" for="inlineFormInput">Green (0-255)</label>
       <input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputG" value="255">
-      <label class="sr-only" for="inlineFormInput">Blue</label>
+      <label class="sr-only" for="inlineFormInput">Blue (0-255)</label>
       <input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputB" value="255">
+      <label class="sr-only" for="inlineFormInput">Steps (n)</label>
+      <input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputSteps" value="100">
+      <label class="sr-only" for="inlineFormInput">Timestep (ms)</label>
+      <input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputTimestep" value="10">
       <a class="btn btn-primary set-variable-color-btn">Set</a>
       <a class="btn btn-primary transition-variable-color-btn">Transition</a>
     </form>
@@ -40,33 +44,35 @@
 {% block javascript %}
 <script type="application/javascript">
     const steps = 100;
-    const timesteps = 20;
+    const timestep = 20;
 
     $(".transition-color-btn").click((e) => {
-        const colors = e.currentTarget.dataset["color"].split(",")
-        $.get(`/transition_color?r=${colors[0]}&g=${colors[1]}&b=${colors[2]}&steps=${steps}&timestep=${timesteps}`, () => {
-            console.log(colors, "done")
+        const colors = e.currentTarget.dataset["color"].split(",");
+        $.get(`/transition_color?r=${colors[0]}&g=${colors[1]}&b=${colors[2]}&steps=${steps}&timestep=${timestep}`, () => {
+            console.log(colors, "done");
         })
     })
 
     $(".transition-variable-color-btn").click((e) => {
-        const colors = [$('#inlineFormInputR').val(), $('#inlineFormInputG').val(), $('#inlineFormInputB').val()]
-        $.get(`/transition_color?r=${colors[0]}&g=${colors[1]}&b=${colors[2]}&steps=${steps}&timestep=${timesteps}`, () => {
-            console.log(colors, "done")
+        const colors = [$('#inlineFormInputR').val(), $('#inlineFormInputG').val(), $('#inlineFormInputB').val()];
+        const _steps = $('#inlineFormInputSteps').val();
+        const _timestep = $('#inlineFormInputTimestep').val();
+        $.get(`/transition_color?r=${colors[0]}&g=${colors[1]}&b=${colors[2]}&steps=${_steps}&timestep=${_timestep}`, () => {
+            console.log(colors, "done");
         })
     })
 
     $(".set-color-btn").click((e) => {
-        const colors = e.currentTarget.dataset["color"].split(",")
+        const colors = e.currentTarget.dataset["color"].split(",");
         $.get(`/show_color?r=${colors[0]}&g=${colors[1]}&b=${colors[2]}`, () => {
-            console.log(colors, "done")
+            console.log(colors, "done");
         })
     })
 
     $(".set-variable-color-btn").click((e) => {
-        const colors = [$('#inlineFormInputR').val(), $('#inlineFormInputG').val(), $('#inlineFormInputB').val()]
+        const colors = [$('#inlineFormInputR').val(), $('#inlineFormInputG').val(), $('#inlineFormInputB').val()];
         $.get(`/show_color?r=${colors[0]}&g=${colors[1]}&b=${colors[2]}`, () => {
-            console.log(colors, "done")
+            console.log(colors, "done");
         })
     })
 </script>
