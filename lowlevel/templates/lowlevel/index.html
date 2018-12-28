@@ -1,16 +1,11 @@
 {%  extends 'base.html' %}
 
 {% block content %}
-    <a class="btn btn-primary set-color-btn" data-color="0,0,0">Off</a>
-    <a class="btn btn-primary set-color-btn" data-color="1,0,0">1,0,0</a>
-    <a class="btn btn-primary set-color-btn" data-color="0,1,0">0,1,0</a>
-    <a class="btn btn-primary set-color-btn" data-color="0,0,1">0,0,1</a>
-    <a class="btn btn-primary set-color-btn" data-color="255,0,0">255,0,0</a>
-    <a class="btn btn-primary set-color-btn" data-color="0,255,0">0,255,0</a>
-    <a class="btn btn-primary set-color-btn" data-color="0,0,255">0,0,255</a>
+    {%  for color in colors %}
+        <a class="btn btn-primary btn-block set-color-btn" data-color="{{ color }}">{{ color }}</a>
+    {% endfor %}
 
-
-    <form class="form-inline">
+    <form class="form-group">
       <label class="sr-only" for="inlineFormInput">Red</label>
       <input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputR" value="255">
       <label class="sr-only" for="inlineFormInput">Green</label>
