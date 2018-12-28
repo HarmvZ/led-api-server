@@ -63,5 +63,7 @@ class TransitionColorView(View):
         r = request.GET["r"]
         g = request.GET["g"]
         b = request.GET["b"]
-        self.led_control.transition_to_color(int(r), int(g), int(b), steps=500, timestep=50)
-        return HttpResponse("New color set: ({}, {}, {}).".format(r, g, b))
+        steps = request.GET["steps"]
+        timestep = request.GET["timestep"]
+        self.led_control.transition_to_color(int(r), int(g), int(b), steps=steps, timestep=timestep)
+        return HttpResponse("New color transitioned: ({}, {}, {}).".format(r, g, b))

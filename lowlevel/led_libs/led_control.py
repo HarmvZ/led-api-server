@@ -94,7 +94,7 @@ class LedControl:
                 self.strip.setPixelColor(i, color)
             self.strip.show()
 
-        def transition_to_color(self, r, g, b, steps=500, timestep=50):
+        def transition_to_color(self, r, g, b, steps=100, timestep=20):
             """
             Transition all leds to a color
             :param r: red value 8-bit int

@@ -39,16 +39,19 @@
 
 {% block javascript %}
 <script type="application/javascript">
+    const steps = 100;
+    const timesteps = 20;
+
     $(".transition-color-btn").click((e) => {
         const colors = e.currentTarget.dataset["color"].split(",")
-        $.get(`/transition_color?r=${colors[0]}&g=${colors[1]}&b=${colors[2]}`, () => {
+        $.get(`/transition_color?r=${colors[0]}&g=${colors[1]}&b=${colors[2]}&steps=${steps}&timestep=${timesteps}`, () => {
             console.log(colors, "done")
         })
     })
 
     $(".transition-variable-color-btn").click((e) => {
         const colors = [$('#inlineFormInputR').val(), $('#inlineFormInputG').val(), $('#inlineFormInputB').val()]
-        $.get(`/transition_color?r=${colors[0]}&g=${colors[1]}&b=${colors[2]}`, () => {
+        $.get(`/transition_color?r=${colors[0]}&g=${colors[1]}&b=${colors[2]}&steps=${steps}&timestep=${timesteps}`, () => {
             console.log(colors, "done")
         })
     })
