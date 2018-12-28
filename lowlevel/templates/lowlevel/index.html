@@ -41,12 +41,26 @@
 <script type="application/javascript">
     $(".transition-color-btn").click((e) => {
         const colors = e.currentTarget.dataset["color"].split(",")
-        $.get(`/show_color?r=${colors[0]}&g=${colors[1]}&b=${colors[2]}`, () => {
+        $.get(`/transition_color?r=${colors[0]}&g=${colors[1]}&b=${colors[2]}`, () => {
             console.log(colors, "done")
         })
     })
 
     $(".transition-variable-color-btn").click((e) => {
+        const colors = [$('#inlineFormInputR').val(), $('#inlineFormInputG').val(), $('#inlineFormInputB').val()]
+        $.get(`/transition_color?r=${colors[0]}&g=${colors[1]}&b=${colors[2]}`, () => {
+            console.log(colors, "done")
+        })
+    })
+
+    $(".set-color-btn").click((e) => {
+        const colors = e.currentTarget.dataset["color"].split(",")
+        $.get(`/show_color?r=${colors[0]}&g=${colors[1]}&b=${colors[2]}`, () => {
+            console.log(colors, "done")
+        })
+    })
+
+    $(".set-variable-color-btn").click((e) => {
         const colors = [$('#inlineFormInputR').val(), $('#inlineFormInputG').val(), $('#inlineFormInputB').val()]
         $.get(`/show_color?r=${colors[0]}&g=${colors[1]}&b=${colors[2]}`, () => {
             console.log(colors, "done")
