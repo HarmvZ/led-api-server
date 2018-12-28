@@ -4,7 +4,7 @@
     <h3>Set color</h3>
     <h4>Static</h4>
     {%  for color in colors %}
-        <a class="btn btn-primary btn-block set-color-btn" data-color="{{ color }}">{{ color }}</a>
+        <a class="btn btn-primary set-color-btn" data-color="{{ color }}">{{ color }}</a>
     {% endfor %}
 
     <h4>Variable</h4>
@@ -19,14 +19,14 @@
       <input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputSteps" value="100">
       <label class="sr-only" for="inlineFormInput">Timestep (ms)</label>
       <input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputTimestep" value="10">
-      <a class="btn btn-primary set-variable-color-btn">Set</a>
-      <a class="btn btn-primary transition-variable-color-btn">Transition</a>
+      <a class="btn btn-primary btn-block set-variable-color-btn">Set</a>
+      <a class="btn btn-primary btn-block transition-variable-color-btn">Transition</a>
     </form>
 
     <h3>Transition color</h3>
     <h4>Static</h4>
     {%  for color in colors %}
-        <a class="btn btn-primary btn-block transition-color-btn" data-color="{{ color }}">{{ color }}</a>
+        <a class="btn btn-primary transition-color-btn" data-color="{{ color }}">{{ color }}</a>
     {% endfor %}
 
     {% if alarms %}
