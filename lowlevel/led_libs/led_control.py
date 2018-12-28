@@ -86,7 +86,11 @@ class LedControl:
         def fill_colors(self, color_matrix):
             """Wipe color across display a pixel at a time."""
             for i in range(self.strip.numPixels()):
-                color = Color(color_matrix[i][0], color_matrix[i][1], color_matrix[i][2])
+                color = Color(
+                    int(color_matrix[i][0]),
+                    int(color_matrix[i][1]),
+                    int(color_matrix[i][2]),
+                )
                 self.strip.setPixelColor(i, color)
             self.strip.show()
 
@@ -110,7 +114,7 @@ class LedControl:
             for i in range(steps):
                 new_colors = (current_colors - color_deltas / steps * i).astype(int)
                 self.fill_colors(new_colors)
-                time.sleep(timestep/1000)
+                time.sleep(timestep / 1000)
 
         def write_matrix_to_strip(self, matrix):
             height, width = matrix.shape
