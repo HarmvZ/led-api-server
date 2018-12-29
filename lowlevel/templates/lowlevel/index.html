@@ -119,16 +119,16 @@
     });
 
     // Clock
-    $("#start_clock").click(
+    $("#start_clock").click(() => {
         $.post("/show_clock", {"action": "start"}, () => {
             console.log("done");
         })
-    );
-    $("#stop_clock").click(
+    });
+    $("#stop_clock").click(() => {
         $.post("/show_clock", {"action": "stop"}, () => {
             console.log("done");
         })
-    );
+    });
 
 </script>
 {% endblock %}

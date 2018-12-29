@@ -90,7 +90,7 @@ class LedControl:
 
         def start_clock(self, bg=None, fg=None):
             file = str(Path("lowlevel/led_libs/show_clock.py").resolve())
-            self.process = Popen("sudo python3 " + file, stderr=None, stdin=None, stdout=None)
+            self.process = Popen("sudo python3 '{}'".format(file), stderr=None, stdin=None, stdout=None)
 
         def stop_clock(self):
             if self.process is not None:
