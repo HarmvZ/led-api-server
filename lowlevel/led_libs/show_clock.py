@@ -2,7 +2,7 @@ import time
 import datetime
 import numpy as np
 from rpi_ws281x import Adafruit_NeoPixel, Color
-from .settings import (
+from settings import (
     LED_COUNT,
     LED_PIN,
     LED_FREQ_HZ,
