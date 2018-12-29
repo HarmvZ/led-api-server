@@ -63,6 +63,7 @@ class ClockView(View):
         return HttpResponse(action)
 
 
+@method_decorator(csrf_exempt, name="dispatch")
 class ColorView(View):
     led_control = LedControl()
 
@@ -74,6 +75,7 @@ class ColorView(View):
         return HttpResponse("New color set: ({}, {}, {}).".format(r, g, b))
 
 
+@method_decorator(csrf_exempt, name="dispatch")
 class TransitionColorView(View):
     led_control = LedControl()
 
