@@ -101,8 +101,8 @@ if __name__ == "__main__":
     fg = args.foregroundcolor or FOREGROUND_COLOR
     bg = bg.split(",")
     fg = fg.split(",")
-    bg = Color(bg[0], bg[1], bg[2])
-    fg = Color(fg[0], fg[1], fg[2])
+    bg = Color(int(bg[0]), int(bg[1]), int(bg[2]))
+    fg = Color(int(fg[0]), int(fg[1]), int(fg[2]))
 
     print("showing clock")
     lc = LedControl(bg, fg)
