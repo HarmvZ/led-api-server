@@ -87,13 +87,13 @@ if __name__ == "__main__":
     parser.add_argument(
         "-bg",
         "--backgroundcolor",
-        action="store_const",
+        action="store",
         help='set the background color, format "r,g,b"',
     )
     parser.add_argument(
         "-fg",
         "--foregroundcolor",
-        action="store_const",
+        action="store",
         help='set the foreground color, format "r,g,b"',
     )
     args = parser.parse_args()

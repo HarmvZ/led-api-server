@@ -84,13 +84,22 @@ class LedControl:
                 color_deltas[i] = current_colors[i] - np.array([r, g, b])
 
             for i in range(steps):
-                new_colors = (current_colors - color_deltas / (steps - 1) * i).astype(int)
+                new_colors = (current_colors - color_deltas / (steps - 1) * i).astype(
+                    int
+                )
                 self.fill_colors(new_colors)
                 time.sleep(timestep / 1000)
 
         def start_clock(self, bg=None, fg=None):
-            file = str(Path("lowlevel/led_libs/show_clock.py").resolve())
-            self.process = Popen("sudo python3 '{}'".format(file), stderr=None, stdin=None, stdout=None)
+            cwd = str(Path("").resolve())
+            self.process = Popen(
+                "sudo python3 lowlevel/led_libs/show_clock.py",
+                stderr=None,
+                stdin=None,
+                stdout=None,
+                shell=True,
+                cwd=cwd,
+            )
 
         def stop_clock(self):
             if self.process is not None:
