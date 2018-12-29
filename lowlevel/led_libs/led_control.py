@@ -89,7 +89,7 @@ class LedControl:
                 time.sleep(timestep / 1000)
 
         def start_clock(self, bg=None, fg=None):
-            file = str(Path("show_clock.py").resolve())
+            file = str(Path("lowlevel/led_libs/show_clock.py").resolve())
             self.process = Popen("sudo python3 " + file, stderr=None, stdin=None, stdout=None)
 
         def stop_clock(self):
