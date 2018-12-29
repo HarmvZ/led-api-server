@@ -2,7 +2,18 @@ import time
 import datetime
 import numpy as np
 from rpi_ws281x import Adafruit_NeoPixel, Color
-from . import settings
+from .settings import (
+    LED_COUNT,
+    LED_PIN,
+    LED_FREQ_HZ,
+    LED_DMA,
+    LED_INVERT,
+    LED_BRIGHTNESS,
+    LED_CHANNEL,
+    MATRIX_HEIGHT,
+    MATRIX_WIDTH,
+    NUMBERS,
+)
 import argparse
 
 BACKGROUND_COLOR = "0,0,30"
@@ -15,13 +26,13 @@ class LedControl:
         self.fg = fg
         # Create NeoPixel object with appropriate configuration.
         self.strip = Adafruit_NeoPixel(
-            settings.LED_COUNT,
-            settings.LED_PIN,
-            settings.LED_FREQ_HZ,
-            settings.LED_DMA,
-            settings.LED_INVERT,
-            settings.LED_BRIGHTNESS,
-            settings.LED_CHANNEL,
+            LED_COUNT,
+            LED_PIN,
+            LED_FREQ_HZ,
+            LED_DMA,
+            LED_INVERT,
+            LED_BRIGHTNESS,
+            LED_CHANNEL,
         )
         # Intialize the library (must be called once before other functions).
         self.strip.begin()
@@ -32,9 +43,9 @@ class LedControl:
             for w in range(width):
                 even = h % 2 == 0
                 if even:
-                    pixel_id = h * settings.MATRIX_WIDTH + w
+                    pixel_id = h * MATRIX_WIDTH + w
                 else:
-                    pixel_id = (h + 1) * settings.MATRIX_WIDTH - w - 1
+                    pixel_id = (h + 1) * MATRIX_WIDTH - w - 1
                 if matrix[h, w] == 1:
                     self.strip.setPixelColor(pixel_id, self.fg)
                 else:
@@ -45,15 +56,15 @@ class LedControl:
     def create_binary_time_matrix():
         now = datetime.datetime.now()
         characters = now.strftime("%H%M%S")
-        matrix = np.zeros((settings.MATRIX_HEIGHT, settings.MATRIX_WIDTH))
+        matrix = np.zeros((MATRIX_HEIGHT, MATRIX_WIDTH))
         indices = ((2, 4), (6, 8), (12, 14), (16, 18), (22, 24), (26, 28))
         for h in range(2, 7):
-            for w in range(settings.MATRIX_WIDTH):
+            for w in range(MATRIX_WIDTH):
                 for i, (start, end) in enumerate(reversed(indices)):
                     if start <= w <= end:
                         # Place character
                         current_char = characters[i]
-                        current_char_matrix = settings.NUMBERS[int(current_char)]
+                        current_char_matrix = NUMBERS[int(current_char)]
                         matrix[h, w] = current_char_matrix[h - 2][w - start]
                     if (w == 10 or w == 20) and (h == 3 or h == 5):
                         # Place delimiter
