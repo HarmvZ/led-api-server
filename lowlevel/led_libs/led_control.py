@@ -93,7 +93,7 @@ class LedControl:
         def start_clock(self, bg=None, fg=None):
             cwd = str(Path("").resolve())
             self.process = Popen(
-                "sudo python3 lowlevel/led_libs/show_clock.py",
+                "exec sudo python3 lowlevel/led_libs/show_clock.py",
                 stderr=None,
                 stdin=None,
                 stdout=None,
