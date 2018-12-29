@@ -66,10 +66,10 @@ class ClockView(View):
 class ColorView(View):
     led_control = LedControl()
 
-    def get(self, request):
-        r = request.GET["r"]
-        g = request.GET["g"]
-        b = request.GET["b"]
+    def post(self, request):
+        r = request.POST["r"]
+        g = request.POST["g"]
+        b = request.POST["b"]
         self.led_control.fill(int(r), int(g), int(b))
         return HttpResponse("New color set: ({}, {}, {}).".format(r, g, b))
 
@@ -77,12 +77,12 @@ class ColorView(View):
 class TransitionColorView(View):
     led_control = LedControl()
 
-    def get(self, request):
-        r = request.GET["r"]
-        g = request.GET["g"]
-        b = request.GET["b"]
-        steps = request.GET.get("steps", 100)
-        timestep = request.GET.get("timestep", 50)
+    def post(self, request):
+        r = request.POST["r"]
+        g = request.POST["g"]
+        b = request.POST["b"]
+        steps = request.POST.get("steps", 100)
+        timestep = request.POST.get("timestep", 50)
         self.led_control.transition_to_color(
             int(r), int(g), int(b), steps=int(steps), timestep=int(timestep)
         )

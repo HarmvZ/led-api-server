@@ -59,7 +59,14 @@
 
     $(".transition-color-btn").click((e) => {
         const colors = e.currentTarget.dataset["color"].split(",");
-        $.get(`/transition_color?r=${colors[0]}&g=${colors[1]}&b=${colors[2]}&steps=${steps}&timestep=${timestep}`, () => {
+        $.post(`/transition_color`,
+            {
+                "r": colors[0],
+                "g": colors[1],
+                "b": colors[2],
+                "steps": steps,
+                "timestep": timestep,
+            }, () => {
             console.log(colors, "done");
         })
     })
@@ -68,21 +75,38 @@
         const colors = [$('#inlineFormInputR').val(), $('#inlineFormInputG').val(), $('#inlineFormInputB').val()];
         const _steps = $('#inlineFormInputSteps').val();
         const _timestep = $('#inlineFormInputTimestep').val();
-        $.get(`/transition_color?r=${colors[0]}&g=${colors[1]}&b=${colors[2]}&steps=${_steps}&timestep=${_timestep}`, () => {
+        $.post(`/transition_color`,
+            {
+                "r": colors[0],
+                "g": colors[1],
+                "b": colors[2],
+                "steps": _steps,
+                "timestep": _timestep,
+            }, () => {
             console.log(colors, "done");
         })
     })
 
     $(".set-color-btn").click((e) => {
         const colors = e.currentTarget.dataset["color"].split(",");
-        $.get(`/show_color?r=${colors[0]}&g=${colors[1]}&b=${colors[2]}`, () => {
+        $.post(`/show_color`,
+            {
+                "r": colors[0],
+                "g": colors[1],
+                "b": colors[2],
+            }, () => {
             console.log(colors, "done");
         })
     })
 
     $(".set-variable-color-btn").click((e) => {
         const colors = [$('#inlineFormInputR').val(), $('#inlineFormInputG').val(), $('#inlineFormInputB').val()];
-        $.get(`/show_color?r=${colors[0]}&g=${colors[1]}&b=${colors[2]}`, () => {
+        $.post(`/show_color`,
+            {
+                "r": colors[0],
+                "g": colors[1],
+                "b": colors[2],
+            }, () => {
             console.log(colors, "done");
         })
     })
