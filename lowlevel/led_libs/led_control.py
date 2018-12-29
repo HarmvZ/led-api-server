@@ -118,6 +118,7 @@ class LedControl:
             if self.process is not None:
                 print("stopping clock")
                 kill(self.process.pid)
+            self.wipe_clear()
 
     instance = None
 
