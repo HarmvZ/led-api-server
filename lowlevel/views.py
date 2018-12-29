@@ -58,7 +58,7 @@ class ClockView(View):
         if action == "start":
             self.led_control.start_clock()
         if action == "stop":
-            self.led_control.stop()
+            self.led_control.stop_clock()
 
         return HttpResponse(action)
 

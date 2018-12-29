@@ -1,6 +1,12 @@
 {%  extends 'base.html' %}
 
 {% block content %}
+    <h3>Show clock</h3>
+    <div class="" role="group">
+        <a class="btn btn-primary btn-block" id="start_clock">Start</a>
+        <a class="btn btn-primary btn-block" id="stop_clock">Stop</a>
+    </div>
+
     <h3>Set color</h3>
     <div class="" role="group">
         {%  for color in colors %}
@@ -54,9 +60,9 @@
 
 {% block javascript %}
 <script type="application/javascript">
+    // Color transitions
     const steps = 100;
     const timestep = 20;
-
     $(".transition-color-btn").click((e) => {
         const colors = e.currentTarget.dataset["color"].split(",");
         $.post(`/transition_color`,
@@ -69,7 +75,7 @@
             }, () => {
             console.log(colors, "done");
         })
-    })
+    });
 
     $(".transition-variable-color-btn").click((e) => {
         const colors = [$('#inlineFormInputR').val(), $('#inlineFormInputG').val(), $('#inlineFormInputB').val()];
@@ -85,8 +91,9 @@
             }, () => {
             console.log(colors, "done");
         })
-    })
+    });
 
+    // Color set
     $(".set-color-btn").click((e) => {
         const colors = e.currentTarget.dataset["color"].split(",");
         $.post(`/show_color`,
@@ -97,7 +104,7 @@
             }, () => {
             console.log(colors, "done");
         })
-    })
+    });
 
     $(".set-variable-color-btn").click((e) => {
         const colors = [$('#inlineFormInputR').val(), $('#inlineFormInputG').val(), $('#inlineFormInputB').val()];
@@ -109,6 +116,19 @@
             }, () => {
             console.log(colors, "done");
         })
-    })
+    });
+
+    // Clock
+    $("#start_clock").click(
+        $.post("/show_clock", {"action": "start"}, () => {
+            console.log("done");
+        })
+    );
+    $("#stop_clock").click(
+        $.post("/show_clock", {"action": "stop"}, () => {
+            console.log("done");
+        })
+    );
+
 </script>
 {% endblock %}
