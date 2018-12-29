@@ -3,6 +3,7 @@ import numpy as np
 from rpi_ws281x import Adafruit_NeoPixel, Color
 from subprocess import Popen
 from . import settings
+from pathlib import Path
 
 
 def bit24_to_3_bit8(val):
@@ -88,7 +89,8 @@ class LedControl:
                 time.sleep(timestep / 1000)
 
         def start_clock(self, bg=None, fg=None):
-            self.process = Popen("sudo python3 show_clock.py", stderr=None, stdin=None, stdout=None)
+            file = str(Path("show_clock.py").resolve())
+            self.process = Popen("sudo python3 " + file, stderr=None, stdin=None, stdout=None)
 
         def stop_clock(self):
             if self.process is not None:
