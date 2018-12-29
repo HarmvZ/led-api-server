@@ -87,7 +87,7 @@ class LedControl:
                 self.fill_colors(new_colors)
                 time.sleep(timestep / 1000)
 
-        def show_clock(self, bg, fg):
+        def start_clock(self, bg, fg):
             self.process = Popen("sudo python3 show_clock.py", stderr=None, stdin=None, stdout=None)
 
         def stop_clock(self):
