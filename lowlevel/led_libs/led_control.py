@@ -4,7 +4,20 @@ from rpi_ws281x import Adafruit_NeoPixel, Color
 from subprocess import Popen
 from . import settings
 from pathlib import Path
+import psutil
 
+
+def kill(proc_pid):
+    """
+    Helper function that kills a subprocess
+    https://stackoverflow.com/a/25134985
+    :param proc_pid:
+    :return:
+    """
+    process = psutil.Process(proc_pid)
+    for proc in process.children(recursive=True):
+        proc.kill()
+    process.kill()
 
 def bit24_to_3_bit8(val):
     """
@@ -103,7 +116,8 @@ class LedControl:
 
         def stop_clock(self):
             if self.process is not None:
-                self.process.kill()
+                print("stopping clock")
+                kill(self.process.pid)
 
     instance = None
 
