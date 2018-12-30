@@ -49,12 +49,17 @@
     {% if alarms %}
         <ul>
         {% for alarm in alarms %}
-            <li><a href="/alarm/{{ alarm.id }}/">{{ alarm.name }}</a></li>
+            <li>
+                <a href="{% url 'alarm-detail' alarm.id %}">{{ alarm.name }}</a>
+                <a href="{% url 'alarm-update' alarm.id %}">Update</a>
+                <a href="{% url 'alarm-delete' alarm.id %}">Delete</a>
+            </li>
         {% endfor %}
         </ul>
     {% else %}
         <p>No alarms are set.</p>
     {% endif %}
+    <p><a href="{% url 'alarm-create' %}">Create new alarm</a></p>
 {% endblock %}
 
 
