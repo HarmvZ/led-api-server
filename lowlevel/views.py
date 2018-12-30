@@ -1,3 +1,4 @@
+from subprocess import Popen, PIPE
 from django.urls import reverse_lazy
 from django.views import generic, View
 from django.utils.decorators import method_decorator
@@ -5,6 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from .models import Alarm
 from .led_libs.led_control import LedControl
+from leds.settings import ALARM_CRONTAB_COMMAND
 
 
 class IndexView(generic.ListView):
@@ -131,16 +133,7 @@ class TransitionColorView(View):
 
 @method_decorator(csrf_exempt, name="dispatch")
 class WakeUpLightView(View):
-    led_control = LedControl()
-
     def post(self, request):
-        # Set leds to black
-        self.led_control.fill(0, 0, 0)
-
-        # Transition to white in 18000*100 ms = 1800 s = 30 min
-        steps = request.POST.get("steps", 18000)
-        timestep = request.POST.get("timestep", 100)
-        self.led_control.transition_to_color(
-            255, 255, 255, steps=int(steps), timestep=int(timestep)
-        )
-        return HttpResponse("Wake up cycle complete")
+        # Execute wake up light scripts
+        Popen(ALARM_CRONTAB_COMMAND, stdin=PIPE, stdout=PIPE, stderr=PIPE)
+        return HttpResponse("Executing wake up light scripts...")

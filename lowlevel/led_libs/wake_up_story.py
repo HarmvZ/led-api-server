@@ -17,7 +17,6 @@ class WakeUpStory:
         # Create text story
         story = self.news + " " + self.weather + " " + self.traffic
 
-        print(story)
         tts = gTTS(story, lang="nl")
         tts.save(SOUND_FILE_PATH)
 
