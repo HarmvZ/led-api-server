@@ -140,7 +140,12 @@
 
     // Alarm
     $('.test-alarm').click(() => {
-        $.post("/execute_wake_up_scripts", () => {
+        $.post("/execute_wake_up_scripts", {"action": "start"}, () => {
+            console.log("done")
+        })
+    })
+    $('.stop-alarm').click(() => {
+        $.post("/execute_wake_up_scripts", {"action": "stop"}, () => {
             console.log("done")
         })
     })

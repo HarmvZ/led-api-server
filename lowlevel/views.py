@@ -100,7 +100,7 @@ class ClockView(View):
         if action == "stop":
             self.led_control.stop_clock()
 
-        return HttpResponse(action)
+        return HttpResponse(action + " clock")
 
 
 @method_decorator(csrf_exempt, name="dispatch")
@@ -133,7 +133,14 @@ class TransitionColorView(View):
 
 @method_decorator(csrf_exempt, name="dispatch")
 class WakeUpLightView(View):
-    def post(self, request):
-        # Execute wake up light scripts
-        Popen(ALARM_CRONTAB_COMMAND, stdin=PIPE, stdout=PIPE, stderr=PIPE, shell=True)
-        return HttpResponse("Executing wake up light scripts...")
+    def post(self, request, *args, **kwargs):
+        action = request.POST["action"]
+        if action == "start":
+            # Execute wake up light scripts
+            Popen(ALARM_CRONTAB_COMMAND, stdin=PIPE, stdout=PIPE, stderr=PIPE, shell=True)
+        if action == "stop":
+            # Kill all start_alarm.py scripts
+            cmd = "sudo kill $(ps aux | grep 'start_alarm.py' | awk '{print $2}')"
+            Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE, shell=True)
+
+        return HttpResponse(action + " alarm")
