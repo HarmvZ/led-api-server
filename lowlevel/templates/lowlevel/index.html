@@ -49,7 +49,7 @@
     {% if alarms %}
         <ul>
         {% for alarm in alarms %}
-            <li><a href="/alarms/{{ alarm.id }}/">{{ alarm.name }}</a></li>
+            <li><a href="/alarm/{{ alarm.id }}/">{{ alarm.name }}</a></li>
         {% endfor %}
         </ul>
     {% else %}

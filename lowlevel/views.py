@@ -63,6 +63,7 @@ class AlarmDetailView(generic.DetailView):
                 self.object.day_of_week,
             ]
         )
+        return context
 
 
 class AlarmCreateView(generic.edit.CreateView):
