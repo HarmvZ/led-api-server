@@ -39,31 +39,25 @@ class Alarm(models.Model):
 
     def get_related_cronjob(self):
         cron = CronTab(user=True)
-        id_in_crontab = None
         job = None
-        i = 0
-        for _job in cron:
-            if _job.comment == self.cronjob:
-                # should be only one that matches
-                id_in_crontab = i
-                job = _job
-            i += 1
+        jobs = cron.find_comment(self.cronjob)
+        for _job in jobs:
+            job = _job
         if job is None:
             print("No cronjob found")
             raise ValueError("No cronjob existing for model")
 
-        return job, id_in_crontab
+        return job, cron
 
     def save_related_cronjob(self):
-        cron = CronTab(user=True)
-        id_in_crontab = None
         if self.pk is None:
+            cron = CronTab(user=True)
             # New Alarm
             uuid = str(uuid4())
             job = cron.new(command=ALARM_CRONTAB_COMMAND, comment=uuid)
         else:
             # Existing alarm
-            job, id_in_crontab = self.get_related_cronjob()
+            job, cron = self.get_related_cronjob()
             uuid = self.cronjob
 
         # Set times
@@ -71,9 +65,6 @@ class Alarm(models.Model):
 
         # Set enabled
         job.enable(self.enabled)
-
-        if id_in_crontab:
-            cron[id_in_crontab] = job
 
         if job.is_valid():
             print("cronjob valid, writing...")
