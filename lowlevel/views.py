@@ -135,5 +135,5 @@ class TransitionColorView(View):
 class WakeUpLightView(View):
     def post(self, request):
         # Execute wake up light scripts
-        Popen(ALARM_CRONTAB_COMMAND, stdin=PIPE, stdout=PIPE, stderr=PIPE)
+        Popen(ALARM_CRONTAB_COMMAND, stdin=PIPE, stdout=PIPE, stderr=PIPE, shell=True)
         return HttpResponse("Executing wake up light scripts...")
