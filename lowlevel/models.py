@@ -40,9 +40,16 @@ class Alarm(models.Model):
     def get_related_cronjob(self):
         cron = CronTab(user=True)
         iter = cron.find_comment(self.cronjob)
+        i = 0
         for _job in iter:
             # should be only one
+            i += 1
             job = _job
+        if i != 1:
+            print("No cronjob found")
+        else:
+            print("Job found: ", job)
+
         return job
 
     def save_related_cronjob(self):
@@ -61,6 +68,8 @@ class Alarm(models.Model):
 
         # Set enabled
         job.enable(self.enabled)
+
+        print(job)
 
         if job.is_valid():
             print("cronjob valid, writing...")
