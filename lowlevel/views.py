@@ -1,4 +1,4 @@
-import threading
+from django.urls import reverse
 from django.views import generic, View
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
@@ -52,6 +52,18 @@ class IndexView(generic.ListView):
 class AlarmCreateView(generic.edit.CreateView):
     model = Alarm
     fields = ["name", "enabled", "minute", "hour", "day", "month", "day_of_week"]
+    success_url = reverse("")
+
+
+class AlarmUpdateView(generic.edit.UpdateView):
+    model = Alarm
+    fields = ["name", "enabled", "minute", "hour", "day", "month", "day_of_week"]
+    success_url = reverse("")
+
+
+class AlarmDeleteView(generic.edit.DeleteView):
+    model = Alarm
+    success_url = reverse("")
 
 
 @method_decorator(csrf_exempt, name="dispatch")
