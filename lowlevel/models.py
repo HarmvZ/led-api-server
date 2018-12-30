@@ -39,7 +39,10 @@ class Alarm(models.Model):
 
     def get_related_cronjob(self):
         cron = CronTab(user=True)
-        job = cron.find_comment(self.cronjob)
+        iter = cron.find_comment(self.cronjob)
+        for _job in iter:
+            # should be only one
+            job = _job
         return job
 
     def save_related_cronjob(self):
