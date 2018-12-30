@@ -46,7 +46,7 @@ class Alarm(models.Model):
         cron = CronTab(user=True)
         if self.pk is None:
             # New Alarm
-            uuid = uuid4()
+            uuid = str(uuid4())
             job = cron.new(command=ALARM_CRONTAB_COMMAND, comment=uuid)
         else:
             # Existing alarm
