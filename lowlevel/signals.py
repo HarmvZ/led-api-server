@@ -36,5 +36,7 @@ from leds.settings import ALARM_CRONTAB_COMMAND
 @receiver(post_delete, sender=Alarm)
 def delete_cronjob(sender, instance, using):
     cron = CronTab(user=True)
-    job = instance.get_related_cronjob()
+    job, id_in_crontab = instance.get_related_cronjob()
     cron.remove(job)
+    cron.write()
+    print("job removed")
