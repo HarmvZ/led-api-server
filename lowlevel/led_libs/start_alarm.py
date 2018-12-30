@@ -14,6 +14,7 @@ from settings import (
     MATRIX_WIDTH,
     NUMBERS,
 )
+from wake_up_story import WakeUpStory
 
 BACKGROUND_COLOR = "0,0,30"
 FOREGROUND_COLOR = "255,255,0"
@@ -58,3 +59,5 @@ class LedControl:
 if __name__ == "__main__":
     lc = LedControl()
     lc.transition_to_white(steps=1800)  # TODO change to 30 min (18000)
+    ws = WakeUpStory()
+    ws.play()
