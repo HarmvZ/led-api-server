@@ -104,7 +104,6 @@ if __name__ == "__main__":
     bg = Color(int(bg[0]), int(bg[1]), int(bg[2]))
     fg = Color(int(fg[0]), int(fg[1]), int(fg[2]))
 
-    print("showing clock")
     lc = LedControl(bg, fg)
     while True:
         lc.set_time()

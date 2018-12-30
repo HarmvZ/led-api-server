@@ -89,3 +89,16 @@ class TransitionColorView(View):
             int(r), int(g), int(b), steps=int(steps), timestep=int(timestep)
         )
         return HttpResponse("New color transitioned: ({}, {}, {}).".format(r, g, b))
+
+
+@method_decorator(csrf_exempt, name="dispatch")
+class WakeUpLightView(View):
+    led_control = LedControl()
+
+    def post(self, request):
+        steps = request.POST.get("steps", 10000)
+        timestep = request.POST.get("timestep", 50)
+        self.led_control.transition_to_color(
+            int(r), int(g), int(b), steps=int(steps), timestep=int(timestep)
+        )
+        return HttpResponse("New color transitioned: ({}, {}, {}).".format(r, g, b))

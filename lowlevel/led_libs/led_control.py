@@ -116,7 +116,6 @@ class LedControl:
 
         def stop_clock(self):
             if self.process is not None:
-                print("stopping clock")
                 kill(self.process.pid)
             self.wipe_clear()
 
