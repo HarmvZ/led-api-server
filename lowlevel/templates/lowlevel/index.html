@@ -1,6 +1,22 @@
 {%  extends 'base.html' %}
 
 {% block content %}
+    <h3>Set alarms</h3>
+    {% if alarms %}
+        <ul class="list-group">
+        {% for alarm in alarms %}
+            <li class="list-group-item">
+                <a href="{% url 'alarm-detail' alarm.id %}">{{ alarm.name }}</a>
+                <a href="{% url 'alarm-update' alarm.id %}"><img src="{% static "css/open-iconic-master/svg/pencil.svg" %}" alt="Edit"></a>
+                <a href="{% url 'alarm-delete' alarm.id %}"><img src="{% static "css/open-iconic-master/svg/trash.svg" %}" alt="Delete"></a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No alarms are set.</p>
+    {% endif %}
+    <a class="btn btn-primary btn-block" href="{% url 'alarm-create' %}">Create new alarm</a>
+
     <h3>Show clock</h3>
     <div class="" role="group">
         <a class="btn btn-primary btn-block" id="start_clock">Start</a>
@@ -44,22 +60,6 @@
       <a class="btn btn-primary btn-block set-variable-color-btn">Set</a>
       <a class="btn btn-primary btn-block transition-variable-color-btn">Transition</a>
     </form>
-
-
-    {% if alarms %}
-        <ul>
-        {% for alarm in alarms %}
-            <li>
-                <a href="{% url 'alarm-detail' alarm.id %}">{{ alarm.name }}</a>
-                <a href="{% url 'alarm-update' alarm.id %}">Update</a>
-                <a href="{% url 'alarm-delete' alarm.id %}">Delete</a>
-            </li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>No alarms are set.</p>
-    {% endif %}
-    <p><a href="{% url 'alarm-create' %}">Create new alarm</a></p>
 {% endblock %}
 
 

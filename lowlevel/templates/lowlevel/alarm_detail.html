@@ -2,5 +2,5 @@
 <p>Enabled: {{ object.enabled }}</p>
 <p>Crontime: {{ crontime }}</p>
 <p>Cronjob: {{ object.cronjob }}</p>
-<a href="{% url 'alarm-update' object.pk %}">Update</a>
-<a href="{% url 'alarm-delete' object.pk %}">Delete</a>
+<a href="{% url 'alarm-update' object.pk %}"><img src="{% static "css/open-iconic-master/svg/pencil.svg" %}" alt="Edit"></a>
+<a href="{% url 'alarm-delete' object.pk %}"><img src="{% static "css/open-iconic-master/svg/trash.svg" %}" alt="Delete"></a>
