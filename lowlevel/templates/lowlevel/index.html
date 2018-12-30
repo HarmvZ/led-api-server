@@ -18,7 +18,7 @@
         <p>No alarms are set.</p>
     {% endif %}
     <a class="btn btn-primary btn-block" href="{% url 'alarm-create' %}">Create new alarm</a>
-    <a class="btn btn-primary btn-block" href="{% url 'wake-up' %}">Test alarm scripts</a>
+    <a class="btn btn-primary btn-block test-alarm">Test alarm scripts</a>
 
     <h3>Show clock</h3>
     <div class="" role="group">
@@ -137,6 +137,13 @@
             console.log("done");
         })
     });
+
+    // Alarm
+    $('.test-alarm').click(() => {
+        $.post("/execute_wake_up_scripts", () => {
+            console.log("done")
+        })
+    })
 
 </script>
 {% endblock %}
