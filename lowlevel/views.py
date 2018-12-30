@@ -49,16 +49,36 @@ class IndexView(generic.ListView):
         return context
 
 
+class AlarmDetailView(generic.DetailView):
+    model = Alarm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["crontime"] = " ".join(
+            [
+                self.object.minute,
+                self.object.hour,
+                self.object.day,
+                self.object.month,
+                self.object.day_of_week,
+            ]
+        )
+
+
 class AlarmCreateView(generic.edit.CreateView):
     model = Alarm
     fields = ["name", "enabled", "minute", "hour", "day", "month", "day_of_week"]
-    success_url = reverse_lazy("index")
+
+    def get_success_url(self):
+        return reverse_lazy("offerta_create", args=(self.object.id,))
 
 
 class AlarmUpdateView(generic.edit.UpdateView):
     model = Alarm
     fields = ["name", "enabled", "minute", "hour", "day", "month", "day_of_week"]
-    success_url = reverse_lazy("index")
+
+    def get_success_url(self):
+        return reverse_lazy("offerta_create", args=(self.object.id,))
 
 
 class AlarmDeleteView(generic.edit.DeleteView):
