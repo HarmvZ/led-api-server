@@ -25,6 +25,7 @@ def save_cronjob(sender, instance, created, raw, using, update_fields):
     job.enable(instance.enabled)
 
     if job.is_valid():
+        print("cronjob valid, writing...")
         cron.write()
     else:
         # Delete instance?

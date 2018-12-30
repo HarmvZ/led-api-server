@@ -22,7 +22,7 @@ class Alarm(models.Model):
                 self.day_of_week
             )
         ):
-            pass
+            print("cronslices is valid")
         else:
             print("cronjob invalid full_clean")
             raise ValidationError("Time values are not valid for a cronjob")
