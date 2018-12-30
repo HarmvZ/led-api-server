@@ -33,9 +33,9 @@ from leds.settings import ALARM_CRONTAB_COMMAND
 #         raise ValueError("Cronjob is not valid")
 
 
-@receiver(post_delete, sender=Alarm)
-def delete_cronjob(sender, instance, using):
-    job, cron = instance.get_related_cronjob()
-    cron.remove(job)
-    cron.write()
-    print("job removed")
+# @receiver(post_delete, sender=Alarm)
+# def delete_cronjob(sender, instance, using):
+#     job, cron = instance.get_related_cronjob()
+#     cron.remove(job)
+#     cron.write()
+#     print("job removed")

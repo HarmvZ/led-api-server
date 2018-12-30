@@ -37,6 +37,13 @@ class Alarm(models.Model):
 
         return super(Alarm, self).full_clean(*args, **kwargs)
 
+    def delete(self, *args, **kwargs):
+        job, cron = self.get_related_cronjob()
+        cron.remove(job)
+        cron.write()
+        print("Cronjob removed")
+        super().delete(*args, **kwargs)
+
     def get_related_cronjob(self):
         cron = CronTab(user=True)
         job = None
