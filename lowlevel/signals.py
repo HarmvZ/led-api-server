@@ -8,29 +8,29 @@ from leds.settings import ALARM_CRONTAB_COMMAND
 # minute hour day month day_of_week command #pk
 
 
-@receiver(post_save, sender=Alarm)
-def save_cronjob(sender, instance, created, raw, using, update_fields):
-    cron = CronTab(user=True)
-    if created:
-        # New Alarm
-        job = cron.new(command=ALARM_CRONTAB_COMMAND, comment=instance.pk)
-    else:
-        # Existing alarm
-        job = instance.get_related_cronjob()
-
-    # Set times
-    job.setall(instance.minute, instance.hour, instance.day, instance.month, instance.day_of_week)
-
-    # Set enabled
-    job.enable(instance.enabled)
-
-    if job.is_valid():
-        print("cronjob valid, writing...")
-        cron.write()
-    else:
-        # Delete instance?
-        print("invalid cronjob")
-        raise ValueError("Cronjob is not valid")
+# @receiver(post_save, sender=Alarm)
+# def save_cronjob(sender, instance, created, raw, using, update_fields):
+#     cron = CronTab(user=True)
+#     if created:
+#         # New Alarm
+#         job = cron.new(command=ALARM_CRONTAB_COMMAND, comment=instance.pk)
+#     else:
+#         # Existing alarm
+#         job = instance.get_related_cronjob()
+#
+#     # Set times
+#     job.setall(instance.minute, instance.hour, instance.day, instance.month, instance.day_of_week)
+#
+#     # Set enabled
+#     job.enable(instance.enabled)
+#
+#     if job.is_valid():
+#         print("cronjob valid, writing...")
+#         cron.write()
+#     else:
+#         # Delete instance?
+#         print("invalid cronjob")
+#         raise ValueError("Cronjob is not valid")
 
 
 @receiver(post_delete, sender=Alarm)

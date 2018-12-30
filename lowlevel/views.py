@@ -71,7 +71,7 @@ class AlarmCreateView(generic.edit.CreateView):
     fields = ["name", "enabled", "minute", "hour", "day", "month", "day_of_week"]
 
     def get_success_url(self):
-        return reverse_lazy("offerta_create", args=(self.object.id,))
+        return reverse_lazy("alarm-detail", args=(self.object.id,))
 
 
 class AlarmUpdateView(generic.edit.UpdateView):
@@ -79,7 +79,7 @@ class AlarmUpdateView(generic.edit.UpdateView):
     fields = ["name", "enabled", "minute", "hour", "day", "month", "day_of_week"]
 
     def get_success_url(self):
-        return reverse_lazy("offerta_create", args=(self.object.id,))
+        return reverse_lazy("alarm-detail", args=(self.object.id,))
 
 
 class AlarmDeleteView(generic.edit.DeleteView):
