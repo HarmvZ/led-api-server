@@ -28,6 +28,7 @@ def save_cronjob(sender, instance, created, raw, using, update_fields):
         cron.write()
     else:
         # Delete instance?
+        print("invalid cronjob")
         raise ValueError("Cronjob is not valid")
 
 

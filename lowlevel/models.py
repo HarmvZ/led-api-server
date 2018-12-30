@@ -24,6 +24,7 @@ class Alarm(models.Model):
         ):
             pass
         else:
+            print("cronjob invalid full_clean")
             raise ValidationError("Time values are not valid for a cronjob")
 
         return super(Alarm, self).full_clean(*args, **kwargs)
