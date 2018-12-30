@@ -70,6 +70,8 @@ class Alarm(models.Model):
         job.enable(self.enabled)
 
         print(job)
+        for j in cron:
+            print(j)
 
         if job.is_valid():
             print("cronjob valid, writing...")
