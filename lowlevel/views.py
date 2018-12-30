@@ -96,9 +96,13 @@ class WakeUpLightView(View):
     led_control = LedControl()
 
     def post(self, request):
-        steps = request.POST.get("steps", 10000)
-        timestep = request.POST.get("timestep", 50)
+        # Set leds to black
+        self.led_control.fill(0, 0, 0)
+
+        # Transition to white in 18000*100 ms = 1800 s = 30 min
+        steps = request.POST.get("steps", 18000)
+        timestep = request.POST.get("timestep", 100)
         self.led_control.transition_to_color(
-            int(r), int(g), int(b), steps=int(steps), timestep=int(timestep)
+            255, 255, 255, steps=int(steps), timestep=int(timestep)
         )
-        return HttpResponse("New color transitioned: ({}, {}, {}).".format(r, g, b))
+        return HttpResponse("Wake up cycle complete")
