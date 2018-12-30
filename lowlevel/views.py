@@ -52,18 +52,18 @@ class IndexView(generic.ListView):
 class AlarmCreateView(generic.edit.CreateView):
     model = Alarm
     fields = ["name", "enabled", "minute", "hour", "day", "month", "day_of_week"]
-    success_url = reverse_lazy("")
+    success_url = reverse_lazy("index")
 
 
 class AlarmUpdateView(generic.edit.UpdateView):
     model = Alarm
     fields = ["name", "enabled", "minute", "hour", "day", "month", "day_of_week"]
-    success_url = reverse_lazy("")
+    success_url = reverse_lazy("index")
 
 
 class AlarmDeleteView(generic.edit.DeleteView):
     model = Alarm
-    success_url = reverse_lazy("")
+    success_url = reverse_lazy("index")
 
 
 @method_decorator(csrf_exempt, name="dispatch")
