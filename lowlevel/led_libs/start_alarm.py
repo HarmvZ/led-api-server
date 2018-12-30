@@ -40,7 +40,21 @@ class LedControl:
             self.strip.setPixelColor(i, color)
         self.strip.show()
 
+    def transition_to_white(self, steps=18000, timestep=100):
+        """
+        Transition all leds to white
+        :param steps: number of steps in transition
+        :param timestep: time that one step takes in ms
+        """
+        final_color = np.array([255, 255, 255])
+        color_delta = final_color / (steps - 1)
+        color = -color_delta
+        for i in range(steps):
+            color = color + color_delta
+            self.color_wipe(Color(int(color[0]), int(color[1]), int(color[2])))
+            time.sleep(timestep / 1000)
+
 
 if __name__ == "__main__":
     lc = LedControl()
-    lc.color_wipe(Color(255, 0, 0))
+    lc.transition_to_white(steps=1800)  # TODO change to 30 min (18000)
