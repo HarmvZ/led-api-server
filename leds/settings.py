@@ -124,4 +124,4 @@ STATIC_URL = '/static/'
 ALLOWED_HOSTS = ['*']
 
 # Command to be run by crontab when Alarm model is triggered
-ALARM_CRONTAB_COMMAND = "sudo python3 lowlevel/led_libs/start_alarm.py"
+ALARM_CRONTAB_COMMAND = "sudo python3 {}".format(os.path.join(BASE_DIR, "lowlevel/led_libs/start_alarm.py"))
