@@ -122,3 +122,6 @@ STATIC_URL = '/static/'
 
 # Allowed hosts for testserver
 ALLOWED_HOSTS = ['*']
+
+# Command to be run by crontab when Alarm model is triggered
+ALARM_CRONTAB_COMMAND = "sudo python3 lowlevel/led_libs/start_alarm.py"
