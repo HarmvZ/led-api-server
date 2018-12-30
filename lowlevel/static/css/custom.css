@@ -1,0 +1,8 @@
+img[src$="svg"] {
+    width: 16px;
+    height: 16px;
+}
+.alarm-list li a.has-icon {
+    float: right;
+    margin-left: 10px;
+}
