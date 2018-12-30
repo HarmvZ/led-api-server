@@ -49,6 +49,11 @@ class IndexView(generic.ListView):
         return context
 
 
+class AlarmCreateView(generic.edit.CreateView):
+    model = Alarm
+    fields = ["name", "enabled", "minute", "hour", "day", "month", "day_of_week"]
+
+
 @method_decorator(csrf_exempt, name="dispatch")
 class ClockView(View):
     led_control = LedControl()
