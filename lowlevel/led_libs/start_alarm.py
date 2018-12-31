@@ -1,6 +1,7 @@
 import time
 import datetime
 import numpy as np
+import argparse
 from rpi_ws281x import Adafruit_NeoPixel, Color
 from settings import (
     LED_COUNT,
@@ -57,7 +58,27 @@ class LedControl:
 
 
 if __name__ == "__main__":
+    # Process arguments
+    parser = argparse.ArgumentParser(
+        description="Display wake up light and read spoken info"
+    )
+    parser.add_argument(
+        "-s",
+        "--steps",
+        action="store",
+        help='Set the number of steps to be taken in wake up transition (default: 18000)',
+    )
+    parser.add_argument(
+        "-t",
+        "--timestep",
+        action="store",
+        help='Set the number of ms one timestep is (default: 100)',
+    )
+    args = parser.parse_args()
+    steps = args.steps or 18000
+    timestep = args.timestep or 100
+
     lc = LedControl()
-    lc.transition_to_white(steps=1800)  # TODO change to 30 min (18000)
+    lc.transition_to_white(steps=steps, timestep=timestep)
     ws = WakeUpStory()
     ws.play()

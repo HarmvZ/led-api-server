@@ -140,7 +140,7 @@ class WakeUpLightView(View):
         if action == "start":
             # Execute wake up light scripts
             Popen(
-                ALARM_CRONTAB_COMMAND, stdin=PIPE, stdout=PIPE, stderr=PIPE, shell=True
+                ALARM_CRONTAB_COMMAND + " -s 30", stdin=PIPE, stdout=PIPE, stderr=PIPE, shell=True
             )
         if action == "stop":
             # Kill all start_alarm.py scripts
