@@ -18,5 +18,6 @@ urlpatterns = [
         "transition_color", views.TransitionColorView.as_view(), name="transition_color"
     ),
     path("show_clock", views.ClockView.as_view(), name="clock"),
-    path("execute_wake_up_scripts", views.WakeUpLightView.as_view(), name="wake-up"),
+    path("execute_wake_up_scripts", views.WakeUpLightView.as_view(), name="wake-up-light"),
+    path("execute_wake_up_story", views.WakeUpStoryView.as_view(), name="wake-up-story"),
 ]

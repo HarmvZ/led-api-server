@@ -125,3 +125,4 @@ ALARM_CRONTAB_COMMAND = "sudo python3 {}".format(os.path.join(BASE_DIR, "lowleve
 ALARM_STOP_COMMAND = "sudo kill $(ps aux | grep 'start_alarm.py' | awk '{print $2}')"
 CLOCK_START_COMMAND = "exec sudo python3 {}".format(os.path.join(BASE_DIR, "lowlevel/led_libs/show_clock.py"))
 CLOCK_STOP_COMMAND = "sudo kill $(ps aux | grep 'show_clock.py' | awk '{print $2}')"
+STORY_STOP_COMMAND = "sudo kill $(ps aux | grep 'story.mp3' | awk '{print $2}')"

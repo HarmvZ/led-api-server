@@ -6,7 +6,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from .models import Alarm
 from .led_libs.led_control import LedControl
-from leds.settings import ALARM_CRONTAB_COMMAND, CLOCK_STOP_COMMAND
+from .led_libs.wake_up_story import WakeUpStory
+from leds.settings import ALARM_CRONTAB_COMMAND, CLOCK_STOP_COMMAND, STORY_STOP_COMMAND
 
 
 class IndexView(generic.ListView):
@@ -140,10 +141,29 @@ class WakeUpLightView(View):
         if action == "start":
             # Execute wake up light scripts
             Popen(
-                ALARM_CRONTAB_COMMAND + " -steps=30", stdin=PIPE, stdout=PIPE, stderr=PIPE, shell=True
+                ALARM_CRONTAB_COMMAND + " -steps=30",
+                stdin=PIPE,
+                stdout=PIPE,
+                stderr=PIPE,
+                shell=True,
             )
         if action == "stop":
             # Kill all start_alarm.py scripts
             Popen(CLOCK_STOP_COMMAND, stdin=PIPE, stdout=PIPE, stderr=PIPE, shell=True)
+
+        return HttpResponse(action + " alarm")
+
+
+@method_decorator(csrf_exempt, name="dispatch")
+class WakeUpStoryView(View):
+    def post(self, request, *args, **kwargs):
+        action = request.POST["action"]
+        if action == "start":
+            # Execute wake up Story scripts
+            ws = WakeUpStory()
+            ws.play()
+        if action == "stop":
+            # Kill all start_alarm.py scripts
+            Popen(STORY_STOP_COMMAND, stdin=PIPE, stdout=PIPE, stderr=PIPE, shell=True)
 
         return HttpResponse(action + " alarm")
