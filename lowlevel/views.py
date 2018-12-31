@@ -166,4 +166,4 @@ class WakeUpStoryView(View):
             # Kill all start_alarm.py scripts
             Popen(STORY_STOP_COMMAND, stdin=PIPE, stdout=PIPE, stderr=PIPE, shell=True)
 
-        return HttpResponse(action + " alarm")
+        return HttpResponse(action + " story")
