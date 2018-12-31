@@ -30,5 +30,4 @@ MATRIX_HEIGHT = 10
 
 # Spoken information settings
 #########################
-SOUND_FILE_PATH = "story.mp3"
-SOUND_NAME = "Harm"
+

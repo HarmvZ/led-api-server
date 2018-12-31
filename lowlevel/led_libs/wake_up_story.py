@@ -5,7 +5,10 @@ from datetime import datetime
 import locale
 from pathlib import Path
 from subprocess import Popen, PIPE
-from .settings import SOUND_FILE_PATH, SOUND_NAME
+
+
+SOUND_FILE_PATH = "story.mp3"
+SOUND_NAME = "Harm"
 
 
 class WakeUpStory:
