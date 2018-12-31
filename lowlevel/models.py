@@ -1,3 +1,4 @@
+import locale
 from uuid import uuid4
 from django.db import models
 from django.core.exceptions import ValidationError
@@ -81,6 +82,8 @@ class Alarm(models.Model):
 
     @property
     def human_readable_time(self):
+        # Explicitly set locale to NL
+        locale.setlocale(locale.LC_ALL, 'nl_NL.utf-8')
         return get_description(
             "{} {} {} {} {}".format(
                 self.minute, self.hour, self.day, self.month, self.day_of_week
