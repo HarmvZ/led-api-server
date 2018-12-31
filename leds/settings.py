@@ -25,7 +25,7 @@ SECRET_KEY = '2w@jrr9)6ps^#96r=$bn(1i=zi2f4xe%z%k=&h$nb)!$m-cua$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -120,8 +120,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# Allowed hosts for testserver
-ALLOWED_HOSTS = ['*']
-
-# Command to be run by crontab when Alarm model is triggered
+# Shell commands
 ALARM_CRONTAB_COMMAND = "sudo python3 {}".format(os.path.join(BASE_DIR, "lowlevel/led_libs/start_alarm.py"))
+ALARM_STOP_COMMAND = "sudo kill $(ps aux | grep 'start_alarm.py' | awk '{print $2}')"
+CLOCK_START_COMMAND = "exec sudo python3 {}".format(os.path.join(BASE_DIR, "lowlevel/led_libs/show_clock.py"))
+CLOCK_STOP_COMMAND = "sudo kill $(ps aux | grep 'show_clock.py' | awk '{print $2}')"

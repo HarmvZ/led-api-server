@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from .models import Alarm
 from .led_libs.led_control import LedControl
-from leds.settings import ALARM_CRONTAB_COMMAND
+from leds.settings import ALARM_CRONTAB_COMMAND, CLOCK_STOP_COMMAND
 
 
 class IndexView(generic.ListView):
@@ -139,10 +139,11 @@ class WakeUpLightView(View):
         action = request.POST["action"]
         if action == "start":
             # Execute wake up light scripts
-            Popen(ALARM_CRONTAB_COMMAND, stdin=PIPE, stdout=PIPE, stderr=PIPE, shell=True)
+            Popen(
+                ALARM_CRONTAB_COMMAND, stdin=PIPE, stdout=PIPE, stderr=PIPE, shell=True
+            )
         if action == "stop":
             # Kill all start_alarm.py scripts
-            cmd = "sudo kill $(ps aux | grep 'start_alarm.py' | awk '{print $2}')"
-            Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE, shell=True)
+            Popen(CLOCK_STOP_COMMAND, stdin=PIPE, stdout=PIPE, stderr=PIPE, shell=True)
 
         return HttpResponse(action + " alarm")

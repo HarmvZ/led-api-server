@@ -5,6 +5,7 @@ from subprocess import Popen
 from . import settings
 from pathlib import Path
 import psutil
+from leds.settings import CLOCK_START_COMMAND
 
 
 def kill(proc_pid):
@@ -104,14 +105,12 @@ class LedControl:
                 time.sleep(timestep / 1000)
 
         def start_clock(self, bg=None, fg=None):
-            cwd = str(Path("").resolve())
             self.process = Popen(
-                "exec sudo python3 lowlevel/led_libs/show_clock.py",
+                CLOCK_START_COMMAND,
                 stderr=None,
                 stdin=None,
                 stdout=None,
                 shell=True,
-                cwd=cwd,
             )
 
         def stop_clock(self):
