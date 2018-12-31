@@ -8,7 +8,7 @@ from subprocess import Popen, PIPE
 
 
 SOUND_FILE_PATH = "story.mp3"
-SOUND_NAME = "Harm"
+SOUND_NAME = "Harrum"
 
 
 class WakeUpStory:
