@@ -3,6 +3,7 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from crontab import CronTab, CronSlices
 from leds.settings import ALARM_CRONTAB_COMMAND
+from cron_descriptor import get_description
 
 
 class Alarm(models.Model):
@@ -21,11 +22,7 @@ class Alarm(models.Model):
         """
         if CronSlices.is_valid(
             "{} {} {} {} {}".format(
-                self.minute,
-                self.hour,
-                self.day,
-                self.month,
-                self.day_of_week
+                self.minute, self.hour, self.day, self.month, self.day_of_week
             )
         ):
             print("cronslices is valid")
@@ -82,3 +79,10 @@ class Alarm(models.Model):
             print("invalid cronjob")
             raise ValidationError("Cronjob is not valid")
 
+    @property
+    def human_readable_time(self):
+        return get_description(
+            "{} {} {} {} {}".format(
+                self.minute, self.hour, self.day, self.month, self.day_of_week
+            )
+        )

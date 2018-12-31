@@ -17,6 +17,8 @@ class IndexView(generic.ListView):
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
+
+        # Add colors for buttons
         context["colors"] = [
             "0,0,0",
             "5,0,0",

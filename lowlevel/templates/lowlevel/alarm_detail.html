@@ -2,6 +2,7 @@
 {% load static %}
 {% block content %}
     <h1>{{ object.name }}</h1>
+    <p>Tijd: {{ object.human_readable_time }}</p>
     <p>Enabled: {{ object.enabled }}</p>
     <p>Crontime: {{ crontime }}</p>
     <p>Cronjob: {{ object.cronjob }}</p>
