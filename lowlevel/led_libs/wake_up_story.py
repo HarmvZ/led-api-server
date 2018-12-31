@@ -1,21 +1,23 @@
 from gtts import gTTS
 import feedparser
 import re
+from datetime import datetime
+import locale
 from pathlib import Path
 from subprocess import Popen, PIPE
-
-SOUND_FILE_PATH = "story.mp3"
+from settings import SOUND_FILE_PATH, SOUND_NAME
 
 
 class WakeUpStory:
     def __init__(self):
         # Get data
-        self.news = self.get_news()
-        self.weather = self.get_weather()
-        self.traffic = self.get_traffic()
+        greeting = self.get_greeting()
+        news = self.get_news()
+        weather = self.get_weather()
+        traffic = self.get_traffic()
 
         # Create text story
-        story = self.news + " " + self.weather + " " + self.traffic
+        story = greeting + " " + news + " " + weather + " " + traffic
 
         tts = gTTS(story, lang="nl")
         tts.save(SOUND_FILE_PATH)
@@ -27,6 +29,27 @@ class WakeUpStory:
             stdout=PIPE,
             stderr=PIPE,
         )
+
+    def get_greeting(self):
+        # Explicitly set locale to NL
+        locale.setlocale(locale.LC_ALL, 'nl_NL.utf-8')
+        now = datetime.now()
+        day_and_time = now.strftime("%A %d %B, %H:%M")
+
+        if int(now.strftime("%H")) < 12:
+            period = 'morgen'
+        else:
+            period = 'middag'
+        if int(now.strftime("%H")) >= 17:
+            period = 'navond'
+
+        # reads out good morning + my name
+        gmt = 'Goede' + period + ' ' + SOUND_NAME
+
+        # reads date and time
+        day = ', het is vandaag ' + day_and_time + '.  '
+
+        return gmt + day
 
     @staticmethod
     def clean_up(text):
@@ -45,7 +68,7 @@ class WakeUpStory:
             rss_url = "http://feeds.nos.nl/nosnieuwsalgemeen"
             rss = feedparser.parse(rss_url)
 
-            news = "En nu, de 5 belangrijkste nieuwsartikelen van NOS Algemeen. "
+            news = "En nu, de 5 laatste artikelen van NOS Algemeen. "
 
             # Get headlines of top 5 stories
             for story in rss["entries"][:5]:
