@@ -79,6 +79,6 @@ if __name__ == "__main__":
     timestep = args.timestep or 100
 
     lc = LedControl()
-    lc.transition_to_white(steps=steps, timestep=timestep)
+    lc.transition_to_white(steps=int(steps), timestep=int(timestep))
     ws = WakeUpStory()
     ws.play()
