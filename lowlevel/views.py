@@ -141,7 +141,7 @@ class WakeUpLightView(View):
         if action == "start":
             # Execute wake up light scripts
             Popen(
-                ALARM_CRONTAB_COMMAND + " -steps=30",
+                ALARM_CRONTAB_COMMAND + " --steps=30",
                 stdin=PIPE,
                 stdout=PIPE,
                 stderr=PIPE,
