@@ -6,7 +6,7 @@
         <div class="alarm-list">
             <ul class="list-group">
             {% for alarm in alarms %}
-                <li class="list-group-item {{ "list-group-item-success" if alarm.enabled else "list-group-item-danger" }}">
+                <li class="list-group-item {{ alarm.enabled|yesno:"list-group-item-success,list-group-item-danger" }}">
                     <a href="{% url 'alarm-detail' alarm.id %}">{{ alarm.name }}, om {{ alarm.human_readable_time }}</a>
                     <a class="has-icon" href="{% url 'alarm-update' alarm.id %}"><img src="{% static "css/open-iconic-master/svg/pencil.svg" %}" alt="Edit"></a>
                     <a class="has-icon" href="{% url 'alarm-delete' alarm.id %}"><img src="{% static "css/open-iconic-master/svg/trash.svg" %}" alt="Delete"></a>
