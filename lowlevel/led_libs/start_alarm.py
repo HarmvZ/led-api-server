@@ -48,11 +48,17 @@ class LedControl:
         :param steps: number of steps in transition
         :param timestep: time that one step takes in ms
         """
-        final_color = np.array([255, 255, 255])
-        color_delta = final_color / (steps - 1)
-        color = -color_delta
+        final_color = np.array([128, 128, 128])
+        start_color = np.array([0, 0, 0])
+        color_delta = end_color - start_color
         for i in range(steps):
-            color = color + color_delta
+            # create linear i in range 0 to 100
+            lin_range = i / (steps - 1) * 100
+            # create exponential range from 1 to exp(100)
+            log_range = np.exp(lin_range)
+            # create exponential range from 0 to 1
+            log_range = (log_range - 1) / (np.exp(100) - 1)
+            color = start_color + color_delta * log_range
             self.color_wipe(Color(int(color[0]), int(color[1]), int(color[2])))
             time.sleep(timestep / 1000)
 
