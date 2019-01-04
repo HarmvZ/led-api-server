@@ -50,7 +50,7 @@ class LedControl:
         """
         final_color = np.array([128, 128, 128])
         start_color = np.array([0, 0, 0])
-        color_delta = end_color - start_color
+        color_delta = final_color - start_color
         for i in range(steps):
             # create linear i in range 0 to 100
             lin_range = i / (steps - 1) * 100
