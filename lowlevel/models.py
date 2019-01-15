@@ -26,11 +26,9 @@ class Alarm(models.Model):
                 self.minute, self.hour, self.day, self.month, self.day_of_week
             )
         ):
-            print("cronslices is valid")
             # Save cronjob and set uuid4
             self.cronjob = self.save_related_cronjob()
         else:
-            print("cronjob invalid full_clean")
             raise ValidationError("Time values are not valid for a cronjob")
 
         return super(Alarm, self).full_clean(*args, **kwargs)
@@ -39,7 +37,6 @@ class Alarm(models.Model):
         job, cron = self.get_related_cronjob()
         cron.remove(job)
         cron.write()
-        print("Cronjob removed")
         super().delete(*args, **kwargs)
 
     def get_related_cronjob(self):
@@ -49,7 +46,6 @@ class Alarm(models.Model):
         for _job in jobs:
             job = _job
         if job is None:
-            print("No cronjob found")
             raise ValueError("No cronjob existing for model")
 
         return job, cron
@@ -72,12 +68,10 @@ class Alarm(models.Model):
         job.enable(self.enabled)
 
         if job.is_valid():
-            print("cronjob valid, writing...")
             cron.write()
             return uuid
         else:
             # Delete instance?
-            print("invalid cronjob")
             raise ValidationError("Cronjob is not valid")
 
     @property
