@@ -108,3 +108,6 @@ venv.bak/
 
 # Database
 db.sqlite3
+
+# audio file
+story.mp3
