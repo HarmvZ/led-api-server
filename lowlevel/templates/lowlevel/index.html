@@ -47,7 +47,7 @@
     <div class="" role="group">
         {%  for color in colors %}
             <a
-                class="btn btn-primary btn-block set-color-btn"
+                class="btn btn-primary set-color-btn"
                 style="background-color: rgb({{ color }}); border-color: rgb({{  color }});"
                 data-color="{{ color }}"
             >{{ color }}</a>
@@ -58,7 +58,7 @@
     <div class="" role="group">
         {%  for color in colors %}
             <a
-                class="btn btn-primary btn-block transition-color-btn"
+                class="btn btn-primary transition-color-btn"
                 style="background-color: rgb({{ color }}); border-color: rgb({{  color }});"
                 data-color="{{ color }}"
             >{{ color }}</a>
@@ -68,11 +68,11 @@
     <h3>Set/Transition variable</h3>
     <form class="form-group">
       <label class="sr-only" for="inlineFormInput">Red (0-255)</label>
-      <input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputR" value="255">
+      <input type="range" min="0" max="255" step="1" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputR" value="255">
       <label class="sr-only" for="inlineFormInput">Green (0-255)</label>
-      <input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputG" value="255">
+      <input type="range" min="0" max="255" step="1" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputG" value="255">
       <label class="sr-only" for="inlineFormInput">Blue (0-255)</label>
-      <input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputB" value="255">
+      <input type="range" min="0" max="255" step="1" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputB" value="255">
       <label class="sr-only" for="inlineFormInput">Steps (n)</label>
       <input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputSteps" value="100">
       <label class="sr-only" for="inlineFormInput">Timestep (ms)</label>
@@ -84,7 +84,14 @@
 
 
 {% block javascript %}
+    <link rel="stylesheet" href="{% static "js/rangeslider.js-2.3.0/rangeslider.css" %}">
+    <script src="{%  static "js/rangeslider.js-2.3.0/rangeslider.min.js" %}"></script>
+
 <script type="application/javascript">
+    // init range sliders
+    $('input[type="range"]').rangeslider();
+
+
     // Color transitions
     const steps = 100;
     const timestep = 20;
