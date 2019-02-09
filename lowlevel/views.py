@@ -94,8 +94,8 @@ class AlarmDeleteView(generic.edit.DeleteView):
 
 
 class AlarmToggleView(generic.View):
-    def get(self):
-        alarm = get_object_or_404(Alarm, pk=self.kwargs["pk"])
+    def get(self, request, pk):
+        alarm = get_object_or_404(Alarm, pk=pk)
         alarm.enabled = not alarm.enabled
         alarm.save()
         return redirect("index")
