@@ -103,7 +103,7 @@ class AlarmUpdateView(generic.edit.UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(AlarmUpdateView, self).get_context_data(**kwargs)
-        context["time_val"] = f"{self.object.hour}:{self.object.minute}"
+        context["time_val"] = "{}:{}".format(self.object.hour, self.object.minute)
         context["dow_dict"] = [
             (0, "Sunday", True if 0 in self.object.day_of_week else False),
             (1, "Monday", True if 1 in self.object.day_of_week else False),
