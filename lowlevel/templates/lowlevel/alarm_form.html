@@ -44,11 +44,11 @@
         // Update day of week input
         $dow = $('#id_dow');
         $dow.change(() => {
-            let dow = "";
+            let dow = [];
             $dow.find("option:selected").each(() => {
-                dow += $dow.find("option:selected").val() + ",";
+                dow.push($dow.find("option:selected").val());
             });
-            $('#id_day_of_week').val(dow);
+            $('#id_day_of_week').val(dow.join(","));
         })
     </script>
 {% endblock %}
