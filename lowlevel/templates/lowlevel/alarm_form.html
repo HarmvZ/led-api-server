@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
     <form method="post">{% csrf_token %}
-
+        {{ form.as_p }}
         <p><label for="id_name">Name:</label> <input type="text" name="name" value="{{ object.name }}" id="id_name" required="" maxlength="255"></p>
         <p><label for="id_enabled">Enabled:</label> <input type="checkbox" name="enabled" id="id_enabled"{{ object.enabled|yesno:" checked," }}></p>
 

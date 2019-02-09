@@ -89,7 +89,7 @@ class AlarmCreateView(generic.edit.CreateView):
             (3, "Wednesday", False),
             (4, "Thursday", False),
             (5, "Friday", False),
-            (6, "Saturday", False)
+            (6, "Saturday", False),
         ]
         return context
 
@@ -111,9 +111,10 @@ class AlarmUpdateView(generic.edit.UpdateView):
             (3, "Wednesday", True if "3" in self.object.day_of_week else False),
             (4, "Thursday", True if "4" in self.object.day_of_week else False),
             (5, "Friday", True if "5" in self.object.day_of_week else False),
-            (6, "Saturday", True if "6" in self.object.day_of_week else False)
+            (6, "Saturday", True if "6" in self.object.day_of_week else False),
         ]
         return context
+
 
 class AlarmDeleteView(generic.edit.DeleteView):
     model = Alarm
