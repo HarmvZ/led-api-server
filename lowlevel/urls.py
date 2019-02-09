@@ -12,6 +12,9 @@ urlpatterns = [
     path(
         "alarm/delete/<int:pk>/", views.AlarmDeleteView.as_view(), name="alarm-delete"
     ),
+    path(
+        "alarm/toggle/<int:pk>/", views.AlarmToggleView.as_view(), name="alarm-toggle"
+    ),
     # API functions
     path("show_color", views.ColorView.as_view(), name="color"),
     path(

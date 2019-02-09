@@ -4,6 +4,7 @@ from django.views import generic, View
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, redirect
 from .models import Alarm
 from .led_libs.led_control import LedControl
 from .led_libs.wake_up_story import WakeUpStory
@@ -90,6 +91,14 @@ class AlarmUpdateView(generic.edit.UpdateView):
 class AlarmDeleteView(generic.edit.DeleteView):
     model = Alarm
     success_url = reverse_lazy("index")
+
+
+class AlarmToggleView(generic.View):
+    def get(self):
+        alarm = get_object_or_404(Alarm, pk=self.args[0])
+        alarm.enabled = not alarm.enabled
+        alarm.save()
+        return redirect('index')
 
 
 @method_decorator(csrf_exempt, name="dispatch")
