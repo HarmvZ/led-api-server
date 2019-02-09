@@ -12,8 +12,8 @@ class Alarm(models.Model):
     enabled = models.BooleanField(default=True)
     minute = models.CharField(max_length=255)
     hour = models.CharField(max_length=255)
-    day = models.CharField(max_length=255)
-    month = models.CharField(max_length=255)
+    day = models.CharField(max_length=255, default="*")
+    month = models.CharField(max_length=255, default="*")
     day_of_week = models.CharField(max_length=255)
     cronjob = models.CharField(max_length=36)
 
