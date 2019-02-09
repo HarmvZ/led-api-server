@@ -20,6 +20,7 @@ def kill(proc_pid):
         proc.kill()
     process.kill()
 
+
 def bit24_to_3_bit8(val):
     """
     Convert 24-bit value to a 3 component 8 bit value
@@ -106,11 +107,7 @@ class LedControl:
 
         def start_clock(self, bg=None, fg=None):
             self.process = Popen(
-                CLOCK_START_COMMAND,
-                stderr=None,
-                stdin=None,
-                stdout=None,
-                shell=True,
+                CLOCK_START_COMMAND, stderr=None, stdin=None, stdout=None, shell=True
             )
 
         def stop_clock(self):

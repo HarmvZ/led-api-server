@@ -107,7 +107,7 @@
     // Slider show values
     ["R", "G", "B"].forEach(color => {
         $("#inlineFormInput" + color).change((e) => {
-            const value = $(e.target).val()
+            const value = $(e.target).val();
             $("#slider-value-" + color).text(value)
         });
     });

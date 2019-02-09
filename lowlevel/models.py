@@ -77,7 +77,7 @@ class Alarm(models.Model):
     @property
     def human_readable_time(self):
         # Explicitly set locale to NL
-        locale.setlocale(locale.LC_ALL, 'nl_NL.utf-8')
+        locale.setlocale(locale.LC_ALL, "nl_NL.utf-8")
         return get_description(
             "{} {} {} {} {}".format(
                 self.minute, self.hour, self.day, self.month, self.day_of_week

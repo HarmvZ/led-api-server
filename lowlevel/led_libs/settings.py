@@ -30,4 +30,3 @@ MATRIX_HEIGHT = 10
 
 # Spoken information settings
 #########################
-

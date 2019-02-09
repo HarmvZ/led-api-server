@@ -7,17 +7,24 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Alarm',
+            name="Alarm",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(default='Naamloos alarm', max_length=255)),
-                ('activated', models.BooleanField(default=True)),
-                ('datetime', models.DateTimeField()),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(default="Naamloos alarm", max_length=255)),
+                ("activated", models.BooleanField(default=True)),
+                ("datetime", models.DateTimeField()),
             ],
-        ),
+        )
     ]
