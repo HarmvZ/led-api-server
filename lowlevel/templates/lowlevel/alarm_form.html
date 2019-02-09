@@ -35,8 +35,8 @@
         // Update minute and hour inputs when timepicker is changed
         $tp = $('#time-picker');
         $tp.clockpicker({ autoclose: true });
-        $tp.find('input').change(() => {
-            const hour_minute = $tp.find('input').val().split(":");
+        $tp.change(() => {
+            const hour_minute = $tp.val().split(":");
             $('#id_minute').val(hour_minute[0]);
             $('#id_hour').val(hour_minute[1]);
         });
