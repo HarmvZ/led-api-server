@@ -14,3 +14,15 @@ img[src$="svg"] {
     width: 100px;
     margin-bottom: 5px;
 }
+.form-row {
+
+}
+.slider-container {
+    display: flex;
+}
+.slider-container input.custom-range {
+    flex: 1;
+}
+.slider-container span{
+    width: 50px;
+}

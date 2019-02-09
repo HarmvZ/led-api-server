@@ -67,19 +67,35 @@
 
     <h3>Set/Transition variable</h3>
     <form class="form-group">
-      <label class="" id="slider-label-R" for="inlineFormInputR">Red (0-255)</label>
-      <input type="range" min="0" max="255" step="1" class="custom-range" id="inlineFormInputR" value="255">
-      <span id="slider-value-R">255</span>
-      <label class="" id="slider-label-G" for="inlineFormInputG">Green (0-255)</label>
-      <input type="range" min="0" max="255" step="1" class="custom-range" id="inlineFormInputG" value="255">
-      <span id="slider-value-G">255</span>
-      <label class="" id="slider-label-B" for="inlineFormInputB">Blue (0-255)</label>
-      <input type="range" min="0" max="255" step="1" class="custom-range" id="inlineFormInputB" value="255">
-      <span id="slider-value-B">255</span>
-      <label class="" for="inlineFormInput">Steps (n)</label>
-      <input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputSteps" value="100">
-      <label class="" for="inlineFormInput">Timestep (ms)</label>
-      <input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputTimestep" value="10">
+      <div class="form-row">
+          <label class="" id="slider-label-R" for="inlineFormInputR">Red (0-255)</label>
+          <div class="slider-container">
+              <input type="range" min="0" max="255" step="1" class="custom-range" id="inlineFormInputR" value="255">
+              <span id="slider-value-R">255</span>
+          </div>
+      </div>
+      <div class="form-row">
+          <label class="" id="slider-label-G" for="inlineFormInputG">Green (0-255)</label>
+          <div class="slider-container">
+              <input type="range" min="0" max="255" step="1" class="custom-range" id="inlineFormInputG" value="255">
+              <span id="slider-value-G">255</span>
+          </div>
+      </div>
+      <div class="form-row">
+          <label class="" id="slider-label-B" for="inlineFormInputB">Blue (0-255)</label>
+          <div class="slider-container">
+              <input type="range" min="0" max="255" step="1" class="custom-range" id="inlineFormInputB" value="255">
+              <span id="slider-value-B">255</span>
+          </div>
+      </div>
+      <div class="form-row">
+          <label class="" for="inlineFormInput">Steps (n)</label>
+          <input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputSteps" value="100">
+      </div>
+      <div class="form-row">
+          <label class="" for="inlineFormInput">Timestep (ms)</label>
+          <input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputTimestep" value="10">
+      </div>
       <a class="btn btn-primary btn-block set-variable-color-btn">Set</a>
       <a class="btn btn-primary btn-block transition-variable-color-btn">Transition</a>
     </form>
