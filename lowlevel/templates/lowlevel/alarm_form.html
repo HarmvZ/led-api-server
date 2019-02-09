@@ -46,7 +46,7 @@
         $dow.change(() => {
             let dow = "";
             $dow.find("option:selected").each(() => {
-                dow += $(this).val() + ",";
+                dow += $dow.find("option:selected").val() + ",";
             });
             $('#id_day_of_week').val(dow);
         })
