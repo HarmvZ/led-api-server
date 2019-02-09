@@ -80,16 +80,16 @@ class AlarmCreateView(generic.edit.CreateView):
         return reverse_lazy("alarm-detail", args=(self.object.id,))
 
     def get_context_data(self, **kwargs):
-        context = super(AlarmDetailView, self).get_context_data(**kwargs)
-        context["time_val"] = f"{self.object.hour}:{self.object.minute}"
+        context = super(AlarmCreateView, self).get_context_data(**kwargs)
+        context["time_val"] = ""
         context["dow_dict"] = [
-            (0, "Sunday", True if 0 in self.object.day_of_week else False),
-            (1, "Monday", True if 1 in self.object.day_of_week else False),
-            (2, "Tuesday", True if 2 in self.object.day_of_week else False),
-            (3, "Wednesday", True if 3 in self.object.day_of_week else False),
-            (4, "Thursday", True if 4 in self.object.day_of_week else False),
-            (5, "Friday", True if 5 in self.object.day_of_week else False),
-            (6, "Saturday", True if 6 in self.object.day_of_week else False)
+            (0, "Sunday", False),
+            (1, "Monday", False),
+            (2, "Tuesday", False),
+            (3, "Wednesday", False),
+            (4, "Thursday", False),
+            (5, "Friday", False),
+            (6, "Saturday", False)
         ]
         return context
 
@@ -101,6 +101,19 @@ class AlarmUpdateView(generic.edit.UpdateView):
     def get_success_url(self):
         return reverse_lazy("alarm-detail", args=(self.object.id,))
 
+    def get_context_data(self, **kwargs):
+        context = super(AlarmUpdateView, self).get_context_data(**kwargs)
+        context["time_val"] = f"{self.object.hour}:{self.object.minute}"
+        context["dow_dict"] = [
+            (0, "Sunday", True if 0 in self.object.day_of_week else False),
+            (1, "Monday", True if 1 in self.object.day_of_week else False),
+            (2, "Tuesday", True if 2 in self.object.day_of_week else False),
+            (3, "Wednesday", True if 3 in self.object.day_of_week else False),
+            (4, "Thursday", True if 4 in self.object.day_of_week else False),
+            (5, "Friday", True if 5 in self.object.day_of_week else False),
+            (6, "Saturday", True if 6 in self.object.day_of_week else False)
+        ]
+        return context
 
 class AlarmDeleteView(generic.edit.DeleteView):
     model = Alarm
