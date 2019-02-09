@@ -6,16 +6,12 @@
         <p><label for="id_name">Name:</label> <input type="text" name="name" value="Naamloos alarm" id="id_name" required="" maxlength="255"></p>
         <p><label for="id_enabled">Enabled:</label> <input type="checkbox" name="enabled" id="id_enabled" checked=""></p>
 
-        <p><label for="time-picker">Time:</label> <input id="time-picker" autocomplete="off" /></p>
+        <p><label for="time-picker">Time:</label> <input id="time-picker" autocomplete="off" value="{{ time_val }}" /></p>
         <p><label for="id_dow">Day of week:</label>
             <select id="id_dow" multiple>
-                <option value="0">Sunday</option>
-                <option value="1">Monday</option>
-                <option value="2">Tuesday</option>
-                <option value="3">Wednesday</option>
-                <option value="4">Thursday</option>
-                <option value="5">Friday</option>
-                <option value="6">Saturday</option>
+                {%  for val, day, selected in dow_dict %}
+                    <option value="{{ val }}"{{ selected|yesno:' selected="selected",' }}>{{ day }}</option>
+                {% endfor %}
             </select>
         </p>
         <p><label for="id_day">Day:</label> <input type="text" name="day" id="id_day" required="" maxlength="255" value="*"></p>
@@ -23,7 +19,7 @@
 
         <input type="hidden" name="minute" id="id_minute" required="" maxlength="255">
         <input type="hidden" name="hour" id="id_hour" required="" maxlength="255">
-        <input type="hidden" name="day_of_week" id="id_day_of_week" required="" maxlength="255"></p>
+        <input type="hidden" name="day_of_week" id="id_day_of_week" required="" maxlength="255">
         <input class="btn btn-primary btn-block" type="submit" value="Save">
     </form>
 {% endblock %}
