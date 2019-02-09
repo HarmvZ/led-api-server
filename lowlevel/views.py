@@ -95,10 +95,10 @@ class AlarmDeleteView(generic.edit.DeleteView):
 
 class AlarmToggleView(generic.View):
     def get(self):
-        alarm = get_object_or_404(Alarm, pk=self.args[0])
+        alarm = get_object_or_404(Alarm, pk=self.kwargs["pk"])
         alarm.enabled = not alarm.enabled
         alarm.save()
-        return redirect('index')
+        return redirect("index")
 
 
 @method_decorator(csrf_exempt, name="dispatch")
