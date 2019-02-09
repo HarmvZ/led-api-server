@@ -6,7 +6,7 @@ img[src$="svg"] {
     text-align: center;
     margin: 10px 0;
 }
-.alarm-list li a.has-icon {
+.alarm-list .list-group a.has-icon {
     margin: 10px;
     padding:10px;
 }
