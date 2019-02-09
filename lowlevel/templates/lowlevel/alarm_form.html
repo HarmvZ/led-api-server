@@ -33,18 +33,19 @@
     <script type="application/javascript" src="{% static "js/bootstrap-clockpicker/bootstrap-clockpicker.min.js" %}"></script>
     <script type="application/javascript">
         // Update minute and hour inputs when timepicker is changed
-        $('#time-picker').clockpicker({
-            autoclose: true
-        }).find('input').change(() => {
-            const hour_minute = $(this).val().split(":");
+        $tp = $('#time-picker');
+        $tp.clockpicker({ autoclose: true });
+        $tp.find('input').change(() => {
+            const hour_minute = $tp.find('input').val().split(":");
             $('#id_minute').val(hour_minute[0]);
             $('#id_hour').val(hour_minute[1]);
         });
 
         // Update day of week input
-        $('#id_dow').change(() => {
-            let dow = ""
-            $(this).find("option:selected").each(() => {
+        $dow = $('#id_dow');
+        $dow.change(() => {
+            let dow = "";
+            $dow.find("option:selected").each(() => {
                 dow += $(this).val() + ",";
             });
             $('#id_day_of_week').val(dow);
