@@ -67,15 +67,18 @@
 
     <h3>Set/Transition variable</h3>
     <form class="form-group">
-      <label class="sr-only" for="inlineFormInput">Red (0-255)</label>
-      <input type="range" min="0" max="255" step="1" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputR" value="255">
-      <label class="sr-only" for="inlineFormInput">Green (0-255)</label>
-      <input type="range" min="0" max="255" step="1" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputG" value="255">
-      <label class="sr-only" for="inlineFormInput">Blue (0-255)</label>
-      <input type="range" min="0" max="255" step="1" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputB" value="255">
-      <label class="sr-only" for="inlineFormInput">Steps (n)</label>
+      <label class="" id="slider-label-R" for="inlineFormInputR">Red (0-255)</label>
+      <input type="range" min="0" max="255" step="1" class="custom-range" id="inlineFormInputR" value="255">
+      <span id="slider-value-R">255</span>
+      <label class="" id="slider-label-G" for="inlineFormInputG">Green (0-255)</label>
+      <input type="range" min="0" max="255" step="1" class="custom-range" id="inlineFormInputG" value="255">
+      <span id="slider-value-G">255</span>
+      <label class="" id="slider-label-B" for="inlineFormInputB">Blue (0-255)</label>
+      <input type="range" min="0" max="255" step="1" class="custom-range" id="inlineFormInputB" value="255">
+      <span id="slider-value-B">255</span>
+      <label class="" for="inlineFormInput">Steps (n)</label>
       <input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputSteps" value="100">
-      <label class="sr-only" for="inlineFormInput">Timestep (ms)</label>
+      <label class="" for="inlineFormInput">Timestep (ms)</label>
       <input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputTimestep" value="10">
       <a class="btn btn-primary btn-block set-variable-color-btn">Set</a>
       <a class="btn btn-primary btn-block transition-variable-color-btn">Transition</a>
@@ -84,13 +87,14 @@
 
 
 {% block javascript %}
-    <link rel="stylesheet" href="{% static "js/rangeslider.js-2.3.0/rangeslider.css" %}">
-    <script src="{%  static "js/rangeslider.js-2.3.0/rangeslider.min.js" %}"></script>
-
 <script type="application/javascript">
-    // init range sliders
-    $('input[type="range"]').rangeslider();
-
+    // Slider show values
+    ["R", "G", "B"].forEach(color => {
+        $("#inlineFormInput" + color).change((e) => {
+            const value = $(e.target).val()
+            $("#slider-value-" + color).text(value)
+        });
+    });
 
     // Color transitions
     const steps = 100;
@@ -167,24 +171,24 @@
         $.post("/execute_wake_up_scripts", {"action": "start"}, () => {
             console.log("done")
         })
-    })
+    });
     $('.stop-alarm').click(() => {
         $.post("/execute_wake_up_scripts", {"action": "stop"}, () => {
             console.log("done")
         })
-    })
+    });
 
     // Story
     $('.test-story').click(() => {
         $.post("/execute_wake_up_story", {"action": "start"}, () => {
             console.log("done")
         })
-    })
+    });
     $('.stop-story').click(() => {
         $.post("/execute_wake_up_story", {"action": "stop"}, () => {
             console.log("done")
         })
-    })
+    });
 
 </script>
 {% endblock %}
