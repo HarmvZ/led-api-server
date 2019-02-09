@@ -47,7 +47,7 @@
     <div class="" role="group">
         {%  for color in colors %}
             <a
-                class="btn btn-primary set-color-btn"
+                class="btn btn-primary btn-static set-color-btn"
                 style="background-color: rgb({{ color }}); border-color: rgb({{  color }});"
                 data-color="{{ color }}"
             >{{ color }}</a>
@@ -58,7 +58,7 @@
     <div class="" role="group">
         {%  for color in colors %}
             <a
-                class="btn btn-primary transition-color-btn"
+                class="btn btn-primary btn-static transition-color-btn"
                 style="background-color: rgb({{ color }}); border-color: rgb({{  color }});"
                 data-color="{{ color }}"
             >{{ color }}</a>
