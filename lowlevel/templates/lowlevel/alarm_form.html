@@ -6,7 +6,7 @@
         <p><label for="id_name">Name:</label> <input type="text" name="name" value="Naamloos alarm" id="id_name" required="" maxlength="255"></p>
         <p><label for="id_enabled">Enabled:</label> <input type="checkbox" name="enabled" id="id_enabled" checked=""></p>
 
-        <p><label for="time-picker">Time:</label> <input id="time-picker" name="time" /></p>
+        <p><label for="time-picker">Time:</label> <input id="time-picker" name="time" autocomplete="off" /></p>
         <p><label for="id_dow">Day of week:</label>
             <select id="id_dow" name="day_of_week" multiple>
                 <option value="0">Sunday</option>
@@ -21,8 +21,8 @@
         <p><label for="id_day">Day:</label> <input type="text" name="day" id="id_day" required="" maxlength="255" value="*"></p>
         <p><label for="id_month">Month:</label> <input type="text" name="month" id="id_month" required="" maxlength="255" value="*"></p>
 
-        <p><label for="id_minute">Minute:</label> <input type="text" name="minute" id="id_minute" required="" maxlength="255"></p>
-        <p><label for="id_hour">Hour:</label> <input type="text" name="hour" id="id_hour" required="" maxlength="255"></p>
+        <input type="hidden" name="minute" id="id_minute" required="" maxlength="255">
+        <input type="hidden" name="hour" id="id_hour" required="" maxlength="255">
         <p><label for="id_day_of_week">Day of week:</label> <input type="text" name="day_of_week" id="id_day_of_week" required="" maxlength="255"></p>
         <input class="btn btn-primary btn-block" type="submit" value="Save">
     </form>
@@ -45,8 +45,8 @@
         $dow = $('#id_dow');
         $dow.change(() => {
             let dow = [];
-            $dow.find("option:selected").each(() => {
-                dow.push($(this).val());
+            $dow.find("option:selected").each((i, el) => {
+                dow.push($(el).val());
             });
             $('#id_day_of_week').val(dow.join(","));
         })
