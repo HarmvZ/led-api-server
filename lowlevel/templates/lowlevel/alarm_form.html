@@ -12,14 +12,7 @@
                 {% endfor %}
             </select>
         </p>
-<!--
-        <p><label for="id_day">Day:</label> <input type="text" name="day" id="id_day" required="" maxlength="255" value="{{ object.day }}"></p>
-        <p><label for="id_month">Month:</label> <input type="text" name="month" id="id_month" required="" maxlength="255" value="{{ object.month }}"></p>
-        <p><label for="id_name">Name:</label> <input type="text" name="name" value="{{ object.name }}" id="id_name" required="" maxlength="255"></p>
-        <p><label for="id_enabled">Enabled:</label> <input type="checkbox" name="enabled" id="id_enabled"{{ object.enabled|yesno:" checked," }}></p>
-        <input type="hidden" name="minute" id="id_minute" required="" maxlength="255">
-        <input type="hidden" name="hour" id="id_hour" required="" maxlength="255">
-        <input type="hidden" name="day_of_week" id="id_day_of_week" required="" maxlength="255">-->
+
         <input class="btn btn-primary btn-block" type="submit" value="Save">
     </form>
 {% endblock %}
@@ -36,8 +29,8 @@
         $tp.clockpicker({ autoclose: true });
         $tp.change(() => {
             const hour_minute = $tp.val().split(":");
-            $('#id_minute').val(hour_minute[0]);
-            $('#id_hour').val(hour_minute[1]);
+            $('#id_minute').val(hour_minute[1]);
+            $('#id_hour').val(hour_minute[0]);
         });
 
         // Update day of week input
