@@ -111,4 +111,4 @@ if __name__ == "__main__":
         help="Choose animation ({})".format(fn_list_text),
     )
     args = parser.parse_args()
-    args.animation()
+    animationFuncs[args.animation()]
