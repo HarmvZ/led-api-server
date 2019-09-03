@@ -48,7 +48,7 @@ class LedControl:
         :param steps: number of steps in transition
         :param timestep: time that one step takes in ms
         """
-        final_color = np.array([128, 128, 128])
+        final_color = np.array([255, 255, 255])
         start_color = np.array([0, 0, 0])
         color_delta = final_color - start_color
         for i in range(steps):
