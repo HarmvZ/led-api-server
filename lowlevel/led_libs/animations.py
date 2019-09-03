@@ -108,7 +108,7 @@ if __name__ == "__main__":
     fn_list_text = ", ".join(list(animationFuncs.keys()))
     parser.add_argument(
         "animation",
-        help=f"Choose animation ({fn_list_text})",
+        help="Choose animation ({})".format(fn_list_text),
     )
     args = parser.parse_args()
     args.animation()
