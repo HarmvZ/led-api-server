@@ -16,8 +16,8 @@ from settings import (
 )
 import argparse
 
-BACKGROUND_COLOR = "0,0,30"
-FOREGROUND_COLOR = "255,255,0"
+BACKGROUND_COLOR = "0,0,1"
+FOREGROUND_COLOR = "255,0,0"
 
 
 class LedControl:
