@@ -72,13 +72,13 @@ if __name__ == "__main__":
         "-s",
         "--steps",
         action="store",
-        help='Set the number of steps to be taken in wake up transition (default: 18000)',
+        help="Set the number of steps to be taken in wake up transition (default: 18000)",
     )
     parser.add_argument(
         "-t",
         "--timestep",
         action="store",
-        help='Set the number of ms one timestep is (default: 100)',
+        help="Set the number of ms one timestep is (default: 100)",
     )
     args = parser.parse_args()
     steps = args.steps or 18000
