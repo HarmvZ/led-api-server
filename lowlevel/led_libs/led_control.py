@@ -91,7 +91,6 @@ class LedControl:
             :param steps: number of steps in transition
             :param timestep: time that one step takes in ms
             """
-            self.stop_process()
             num_leds = self.strip.numPixels()
             # get current colors and calculate difference with new color
             current_colors = np.zeros((num_leds, 3))
@@ -100,6 +99,8 @@ class LedControl:
                 current_colors[i] = bit24_to_3_bit8(self.strip.getPixelColor(i))
                 color_deltas[i] = current_colors[i] - np.array([r, g, b])
 
+            self.stop_process()
+            
             for i in range(steps):
                 new_colors = (current_colors - color_deltas / (steps - 1) * i).astype(
                     int
