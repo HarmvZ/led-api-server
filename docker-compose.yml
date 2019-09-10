@@ -6,3 +6,9 @@ services:
       dockerfile: ./dockerfiles/Dockerfile
     ports:
       - "80:8000"
+    command: >-
+      bash -c "
+      cd /home/pi/app
+      && python3 manage.py migrate
+      && python3 manage.py runserver 0.0.0.0:8000
+      "
