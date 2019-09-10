@@ -68,6 +68,7 @@ class LedControl:
             self.color_wipe(Color(0, 0, 0))
 
         def fill(self, r, g, b):
+            self.stop_process()
             self.color_wipe(Color(r, g, b))
 
         def fill_colors(self, color_matrix):
@@ -90,6 +91,7 @@ class LedControl:
             :param steps: number of steps in transition
             :param timestep: time that one step takes in ms
             """
+            self.stop_process()
             num_leds = self.strip.numPixels()
             # get current colors and calculate difference with new color
             current_colors = np.zeros((num_leds, 3))
@@ -106,14 +108,17 @@ class LedControl:
                 time.sleep(timestep / 1000)
 
         def start_clock(self, bg=None, fg=None):
-            self.stop_process()
             color_options = ""
             if fg:
                 color_options += " -fg {}".format(fg)
             if bg:
                 color_options += " -bg {}".format(bg)
+            self.start_process(CLOCK_START_COMMAND + color_options)
+
+        def start_process(self, command):
+            self.stop_process()
             self.process = Popen(
-                CLOCK_START_COMMAND + color_options, stderr=None, stdin=None, stdout=None, shell=True
+                command, stderr=None, stdin=None, stdout=None, shell=True
             )
 
         def stop_process(self):
