@@ -136,7 +136,9 @@ class ClockView(View):
     def post(self, request, *args, **kwargs):
         action = request.POST["action"]
         if action == "start":
-            self.led_control.start_clock()
+            fg = request.POST.get("fg")
+            bg = request.POST.get("bg")
+            self.led_control.start_clock(fg=fg, bg=bg)
         if action == "stop":
             self.led_control.stop_process()
 
