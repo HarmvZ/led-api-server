@@ -39,6 +39,66 @@
 
     <h3>Show clock</h3>
     <div class="" role="group">
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseBgColor" aria-expanded="false" aria-controls="collapseBgColor">
+            Set background color
+        </button>
+        <div class="collapse" id="collapseBgColor">
+            <div class="card card-body">
+                <form class="form-group">
+                    <div class="form-row">
+                        <label class="" id="slider-label-R" for="clockBgR">Red (0-255)</label>
+                        <div class="slider-container">
+                            <input type="range" min="0" max="255" step="1" class="custom-range" id="clockBgR" value="255">
+                            <span id="slider-value-R">255</span>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <label class="" id="slider-label-G" for="clockBgG">Green (0-255)</label>
+                        <div class="slider-container">
+                            <input type="range" min="0" max="255" step="1" class="custom-range" id="clockBgG" value="0">
+                            <span id="slider-value-G">255</span>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <label class="" id="slider-label-B" for="clockBgB">Blue (0-255)</label>
+                        <div class="slider-container">
+                            <input type="range" min="0" max="255" step="1" class="custom-range" id="clockBgB" value="0">
+                            <span id="slider-value-B">255</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>                
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseFgColor" aria-expanded="false" aria-controls="collapseFgColor">
+            Set foreground color
+        </button>
+        <div class="collapse" id="collapseFgColor">
+            <div class="card card-body">
+                <form class="form-group">
+                    <div class="form-row">
+                        <label class="" id="slider-label-R" for="clockFgR">Red (0-255)</label>
+                        <div class="slider-container">
+                            <input type="range" min="0" max="255" step="1" class="custom-range" id="clockFgR" value="0">
+                            <span id="slider-value-R">255</span>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <label class="" id="slider-label-G" for="clockFgG">Green (0-255)</label>
+                        <div class="slider-container">
+                            <input type="range" min="0" max="255" step="1" class="custom-range" id="clockFgG" value="0">
+                            <span id="slider-value-G">255</span>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <label class="" id="slider-label-B" for="clockFgB">Blue (0-255)</label>
+                        <div class="slider-container">
+                            <input type="range" min="0" max="255" step="1" class="custom-range" id="clockFgB" value="0">
+                            <span id="slider-value-B">255</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>                
         <a class="btn btn-primary btn-block" id="start_clock">Start</a>
         <a class="btn btn-primary btn-block" id="stop_clock">Stop</a>
     </div>
@@ -172,7 +232,11 @@
 
     // Clock
     $("#start_clock").click(() => {
-        $.post("/show_clock", {"action": "start"}, () => {
+        let bgColors = [$('#clockBgR').val(), $('#clockBgG').val(), $('#clockBgB').val()];
+        let fgColors = [$('#clockFgR').val(), $('#clockFgG').val(), $('#clockFgB').val()];
+        bgColors = bgColors.join(",");
+        fgColors = fgColors.join(",");
+        $.post("/show_clock", {"action": "start", "fg": fgColors, "bg": bgColors}, () => {
             console.log("done");
         })
     });
