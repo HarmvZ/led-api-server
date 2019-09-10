@@ -108,9 +108,9 @@ class LedControl:
         def start_clock(self, bg=None, fg=None):
             color_options = ""
             if fg:
-                color_options += " fg={}".format(fg)
+                color_options += " -fg {}".format(fg)
             if bg:
-                color_options += " bg={}".format(bg)
+                color_options += " -bg {}".format(bg)
             self.process = Popen(
                 CLOCK_START_COMMAND + color_options, stderr=None, stdin=None, stdout=None, shell=True
             )
