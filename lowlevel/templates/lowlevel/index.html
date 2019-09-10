@@ -49,21 +49,21 @@
                         <label class="" id="slider-label-R" for="clockBgR">Red (0-255)</label>
                         <div class="slider-container">
                             <input type="range" min="0" max="255" step="1" class="custom-range" id="clockBgR" value="255">
-                            <span id="slider-value-R">255</span>
+                            <span id="clockBgRValue">255</span>
                         </div>
                     </div>
                     <div class="form-row">
                         <label class="" id="slider-label-G" for="clockBgG">Green (0-255)</label>
                         <div class="slider-container">
                             <input type="range" min="0" max="255" step="1" class="custom-range" id="clockBgG" value="0">
-                            <span id="slider-value-G">255</span>
+                            <span id="clockBgGValue">255</span>
                         </div>
                     </div>
                     <div class="form-row">
                         <label class="" id="slider-label-B" for="clockBgB">Blue (0-255)</label>
                         <div class="slider-container">
                             <input type="range" min="0" max="255" step="1" class="custom-range" id="clockBgB" value="0">
-                            <span id="slider-value-B">255</span>
+                            <span id="clockBgBValue">255</span>
                         </div>
                     </div>
                 </form>
@@ -79,21 +79,21 @@
                         <label class="" id="slider-label-R" for="clockFgR">Red (0-255)</label>
                         <div class="slider-container">
                             <input type="range" min="0" max="255" step="1" class="custom-range" id="clockFgR" value="0">
-                            <span id="slider-value-R">255</span>
+                            <span id="clockFgRValue">255</span>
                         </div>
                     </div>
                     <div class="form-row">
                         <label class="" id="slider-label-G" for="clockFgG">Green (0-255)</label>
                         <div class="slider-container">
                             <input type="range" min="0" max="255" step="1" class="custom-range" id="clockFgG" value="0">
-                            <span id="slider-value-G">255</span>
+                            <span id="clockFgGValue">255</span>
                         </div>
                     </div>
                     <div class="form-row">
                         <label class="" id="slider-label-B" for="clockFgB">Blue (0-255)</label>
                         <div class="slider-container">
                             <input type="range" min="0" max="255" step="1" class="custom-range" id="clockFgB" value="0">
-                            <span id="slider-value-B">255</span>
+                            <span id="clockFgBValue">255</span>
                         </div>
                     </div>
                 </form>
@@ -128,33 +128,33 @@
     <h3>Set/Transition variable</h3>
     <form class="form-group">
       <div class="form-row">
-          <label class="" id="slider-label-R" for="inlineFormInputR">Red (0-255)</label>
+          <label class="" id="slider-label-R" for="colorSliderTransitionR">Red (0-255)</label>
           <div class="slider-container">
-              <input type="range" min="0" max="255" step="1" class="custom-range" id="inlineFormInputR" value="255">
-              <span id="slider-value-R">255</span>
+              <input type="range" min="0" max="255" step="1" class="custom-range" id="colorSliderTransitionR" value="255">
+              <span id="colorSliderTransitionRValue">255</span>
           </div>
       </div>
       <div class="form-row">
-          <label class="" id="slider-label-G" for="inlineFormInputG">Green (0-255)</label>
+          <label class="" id="slider-label-G" for="colorSliderTransitionG">Green (0-255)</label>
           <div class="slider-container">
-              <input type="range" min="0" max="255" step="1" class="custom-range" id="inlineFormInputG" value="255">
-              <span id="slider-value-G">255</span>
+              <input type="range" min="0" max="255" step="1" class="custom-range" id="colorSliderTransitionG" value="255">
+              <span id="colorSliderTransitionGValue">255</span>
           </div>
       </div>
       <div class="form-row">
-          <label class="" id="slider-label-B" for="inlineFormInputB">Blue (0-255)</label>
+          <label class="" id="slider-label-B" for="colorSliderTransitionB">Blue (0-255)</label>
           <div class="slider-container">
-              <input type="range" min="0" max="255" step="1" class="custom-range" id="inlineFormInputB" value="255">
-              <span id="slider-value-B">255</span>
+              <input type="range" min="0" max="255" step="1" class="custom-range" id="colorSliderTransitionB" value="255">
+              <span id="colorSliderTransitionBValue">255</span>
           </div>
       </div>
       <div class="form-row">
-          <label class="" for="inlineFormInput">Steps (n)</label>
-          <input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputSteps" value="100">
+          <label class="" for="colorSliderTransition">Steps (n)</label>
+          <input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0" id="colorSliderTransitionSteps" value="100">
       </div>
       <div class="form-row">
-          <label class="" for="inlineFormInput">Timestep (ms)</label>
-          <input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInputTimestep" value="10">
+          <label class="" for="colorSliderTransition">Timestep (ms)</label>
+          <input type="number" class="form-control mb-2 mr-sm-2 mb-sm-0" id="colorSliderTransitionTimestep" value="10">
       </div>
       <a class="btn btn-primary btn-block set-variable-color-btn">Set</a>
       <a class="btn btn-primary btn-block transition-variable-color-btn">Transition</a>
@@ -165,12 +165,14 @@
 {% block javascript %}
 <script type="application/javascript">
     // Slider show values
-    ["R", "G", "B"].forEach(color => {
-        $("#inlineFormInput" + color).change((e) => {
-            const value = $(e.target).val();
-            $("#slider-value-" + color).text(value)
+    ["clockBg", "clockFg", "colorSliderTransition"].forEach(sliderName => {
+        ["R", "G", "B"].forEach(color => {
+            $("#" +sliderName + color).change((e) => {
+                const value = $(e.target).val();
+                $("#" + sliderName + color + "Value").text(value)
+            });
         });
-    });
+    })
 
     // Color transitions
     const steps = 100;
@@ -190,9 +192,9 @@
     });
 
     $(".transition-variable-color-btn").click((e) => {
-        const colors = [$('#inlineFormInputR').val(), $('#inlineFormInputG').val(), $('#inlineFormInputB').val()];
-        const _steps = $('#inlineFormInputSteps').val();
-        const _timestep = $('#inlineFormInputTimestep').val();
+        const colors = [$('#colorSliderTransitionR').val(), $('#colorSliderTransitionG').val(), $('#colorSliderTransitionB').val()];
+        const _steps = $('#colorSliderTransitionSteps').val();
+        const _timestep = $('#colorSliderTransitionTimestep').val();
         $.post(`/transition_color`,
             {
                 "r": colors[0],
@@ -219,7 +221,7 @@
     });
 
     $(".set-variable-color-btn").click((e) => {
-        const colors = [$('#inlineFormInputR').val(), $('#inlineFormInputG').val(), $('#inlineFormInputB').val()];
+        const colors = [$('#colorSliderTransitionR').val(), $('#colorSliderTransitionG').val(), $('#colorSliderTransitionB').val()];
         $.post(`/show_color`,
             {
                 "r": colors[0],
