@@ -110,7 +110,7 @@ class LedControl:
                 CLOCK_START_COMMAND, stderr=None, stdin=None, stdout=None, shell=True
             )
 
-        def stop_clock(self):
+        def stop_process(self):
             if self.process is not None:
                 kill(self.process.pid)
             self.wipe_clear()
