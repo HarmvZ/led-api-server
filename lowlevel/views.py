@@ -186,7 +186,7 @@ class WakeUpLightView(View):
             )
         if action == "stop":
             # Kill all start_alarm.py scripts
-            Popen(CLOCK_STOP_COMMAND, stdin=PIPE, stdout=PIPE, stderr=PIPE, shell=True)
+            Popen(ALARM_STOP_COMMAND, stdin=PIPE, stdout=PIPE, stderr=PIPE, shell=True)
 
         return HttpResponse(action + " alarm")
 
