@@ -106,6 +106,7 @@ class LedControl:
                 time.sleep(timestep / 1000)
 
         def start_clock(self, bg=None, fg=None):
+            self.stop_process()
             color_options = ""
             if fg:
                 color_options += " -fg {}".format(fg)
