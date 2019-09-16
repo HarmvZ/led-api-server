@@ -3,6 +3,7 @@ from rest_framework.decorators import api_view
 from django.views.decorators.csrf import csrf_exempt
 
 from api.serializers import ColorSerializer
+from lowlevel.led_libs.led_control import LedControl
 
 # Create your views here.
 @csrf_exempt
@@ -14,8 +15,8 @@ def set_color(request):
     success = False
     serializer = ColorSerializer(data=request.data)
     if (serializer.is_valid()):
-        # TODO set color
-        print("sets color")
+        lc = LedControl()
+        lc.strip_action("fill", serializer.r, serializer.g, serializer.b)
         success = True
     status = 200 if success else 400
     return JsonResponse({ "success": success }, status=status)
@@ -25,8 +26,8 @@ def transition_color(request):
     success = False
     serializer = ColorSerializer(data=request.data)
     if (serializer.is_valid()):
-        # TODO transition color
-        print("transition color")
+        lc = LedControl()
+        lc.strip_action("transition_to_color", serializer.r, serializer.g, serializer.b)        
         success = True
     status = 200 if success else 400
     return JsonResponse({ "success": success }, status=status)
