@@ -1,4 +1,4 @@
-version: '3'
+version: '3.2'
 services:
   rpi:
     build:
@@ -6,6 +6,10 @@ services:
       dockerfile: ./dockerfiles/Dockerfile
     ports:
       - "80:8000"
+    volumes:
+      - type: bind
+        source: .
+        target: /home/pi/app/
     command: >-
       bash -c "
       cd /home/pi/app
