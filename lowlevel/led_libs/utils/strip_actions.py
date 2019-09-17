@@ -72,7 +72,7 @@ class StripActions:
                     new_colors = (current_colors - color_deltas / (steps - 1) * i).astype(
                         int
                     )
-                    this.fill_colors(new_colors)
+                    this.fill_colors(strip, new_colors)
                     time.sleep(timestep / 1000)
                     if self.stopped():
                         return
