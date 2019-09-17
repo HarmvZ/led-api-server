@@ -86,8 +86,7 @@ class StripActions:
         fg_color = Color(fg["r"], fg["g"], fg["b"])
         bg_color = Color(bg["r"], bg["g"], bg["b"])
 
-        clock = ClockThread(kwargs={
-            "strip": strip,
+        clock = ClockThread(strip, kwargs={
             "fg_color": fg_color,
             "bg_color": bg_color
         })

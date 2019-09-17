@@ -1,5 +1,6 @@
 import time
 import datetime
+import numpy as np
 from lowlevel.led_libs.utils.stoppable_thread import StoppableThread
 from lowlevel.led_libs.settings import (
     MATRIX_HEIGHT,
@@ -9,13 +10,12 @@ from lowlevel.led_libs.settings import (
 
 class ClockThread(StoppableThread):
     def run(self):
-        strip = self._kwargs['strip']
-        fg_color = self._kwargs['fg_color']
-        bg_color = self._kwargs['bg_color']
+        fg_color = self.kwargs['fg_color']
+        bg_color = self.kwargs['bg_color']
 
         while not self.stopped():
             matrix = self.create_binary_time_matrix()
-            self.write_matrix_to_strip(strip, matrix, fg_color, bg_color)
+            self.write_matrix_to_strip(self.strip, matrix, fg_color, bg_color)
             time.sleep(.9)
 
     @staticmethod
