@@ -15,8 +15,9 @@ def set_color(request):
     success = False
     serializer = ColorSerializer(data=request.data)
     if (serializer.is_valid()):
+        r, g, b = serializer.data["rgb"]
         lc = LedControl()
-        lc.strip_action("fill", serializer.r, serializer.g, serializer.b)
+        lc.strip_action("fill", r, g, b)
         success = True
     status = 200 if success else 400
     return JsonResponse({ "success": success }, status=status)
@@ -26,8 +27,9 @@ def transition_color(request):
     success = False
     serializer = ColorSerializer(data=request.data)
     if (serializer.is_valid()):
+        r, g, b = serializer.data["rgb"]
         lc = LedControl()
-        lc.strip_action("transition_to_color", serializer.r, serializer.g, serializer.b)        
+        lc.strip_action("transition_to_color", r, g, b)
         success = True
     status = 200 if success else 400
     return JsonResponse({ "success": success }, status=status)
