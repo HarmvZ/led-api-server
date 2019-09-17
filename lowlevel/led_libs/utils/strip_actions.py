@@ -46,7 +46,6 @@ class StripActions:
             strip.setPixelColor(i, color)
         strip.show()
 
-    @staticmethod
     def transition_to_color(self, strip, r, g, b, steps=100, timestep=20):
         """
         Transition all leds to a color
