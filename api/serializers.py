@@ -14,3 +14,8 @@ class ColorSerializer(serializers.Serializer):
         g = obj.get('g', 0)
         b = obj.get('b', 0)
         return (r, g, b)
+
+class TransitionColorSerializer(ColorSerializer):
+    steps = serializers.IntegerField(min_value=1, required=False, default=100)
+    timestep = serializers.IntegerField(min_value=1, required=False, default=20)
+
