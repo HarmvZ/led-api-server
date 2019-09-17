@@ -1,6 +1,5 @@
 import time
 import numpy as np
-import inspect
 from rpi_ws281x import Adafruit_NeoPixel, Color
 from subprocess import Popen
 from . import settings
@@ -32,8 +31,7 @@ class LedControl:
 
         def strip_action(self, name, *args, **kwargs):
             if (
-                inspect.isclass(self.thread) 
-                and issubclass(self.thread, StoppableThread) 
+                issubclass(type(self.thread), StoppableThread) 
                 and self.thread.is_alive() 
                 and not self.thread.stopped()
             ):
