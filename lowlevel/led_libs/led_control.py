@@ -5,22 +5,9 @@ from rpi_ws281x import Adafruit_NeoPixel, Color
 from subprocess import Popen
 from . import settings
 from pathlib import Path
-import psutil
 from leds.settings import CLOCK_START_COMMAND
 from lowlevel.led_libs.utils.stoppable_thread import StoppableThread
 from lowlevel.led_libs.utils.strip_actions import StripActions
-
-def kill(proc_pid):
-    """
-    Helper function that kills a subprocess
-    https://stackoverflow.com/a/25134985
-    :param proc_pid:
-    :return:
-    """
-    process = psutil.Process(proc_pid)
-    for proc in process.children(recursive=True):
-        proc.kill()
-    process.kill()
 
 # Singleton class as defined in:
 # https://python-3-patterns-idioms-test.readthedocs.io/en/latest/Singleton.html
