@@ -16,36 +16,18 @@ from lowlevel.led_libs.settings import (
 )
 from lowlevel.led_libs.utils.bit24_to_3_bit8 import bit24_to_3_bit8
 from lowlevel.led_libs.utils.stoppable_thread import StoppableThread
+from lowlevel.led_libs.utils.core_actions import fill_colors, color_wipe
 from lowlevel.led_libs.threads.ClockThread import ClockThread
 
 CLOCK_BACKGROUND_COLOR = "0,0,1"
 CLOCK_FOREGROUND_COLOR = "255,0,0"
 
 class StripActions:
-    @staticmethod
-    def color_wipe(strip, color):
-        """Wipe color across display a pixel at a time."""
-        for i in range(strip.numPixels()):
-            strip.setPixelColor(i, color)
-        strip.show()
-
     def wipe_clear(self, strip):
-        self.color_wipe(strip, Color(0, 0, 0))
+        color_wipe(strip, Color(0, 0, 0))
 
     def fill(self, strip, r, g, b):
-        self.color_wipe(strip, Color(r, g, b))
-
-    @staticmethod
-    def fill_colors(strip, color_matrix):
-        """Wipe color across display a pixel at a time."""
-        for i in range(strip.numPixels()):
-            color = Color(
-                int(color_matrix[i][0]),
-                int(color_matrix[i][1]),
-                int(color_matrix[i][2]),
-            )
-            strip.setPixelColor(i, color)
-        strip.show()
+        color_wipe(strip, Color(r, g, b))
 
     def transition_to_color(self, strip, r, g, b, steps=100, timestep=20):
         """
@@ -56,15 +38,14 @@ class StripActions:
         :param steps: number of steps in transition
         :param timestep: time that one step takes in ms
         """
-        this = self
         class TransitionThread(StoppableThread):
             def run(self):
-                num_leds = strip.numPixels()
+                num_leds = self.strip.numPixels()
                 # get current colors and calculate difference with new color
                 current_colors = np.zeros((num_leds, 3))
                 color_deltas = np.zeros((num_leds, 3))
                 for i in range(num_leds):
-                    current_colors[i] = bit24_to_3_bit8(strip.getPixelColor(i))
+                    current_colors[i] = bit24_to_3_bit8(self.strip.getPixelColor(i))
                     color_deltas[i] = current_colors[i] - np.array([r, g, b])
                     if self.stopped():
                         return
@@ -73,11 +54,11 @@ class StripActions:
                     new_colors = (current_colors - color_deltas / (steps - 1) * i).astype(
                         int
                     )
-                    this.fill_colors(strip, new_colors)
+                    fill_colors(self.strip, new_colors)
                     time.sleep(timestep / 1000)
                     if self.stopped():
                         return
-        transition = TransitionThread()
+        transition = TransitionThread(strip)
         transition.start()
         return transition
 
