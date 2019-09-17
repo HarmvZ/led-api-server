@@ -13,6 +13,8 @@ from lowlevel.led_libs.settings import (
     MATRIX_HEIGHT,
     MATRIX_WIDTH,
     NUMBERS,
+    CLOCK_FOREGROUND_COLOR,
+    CLOCK_BACKGROUND_COLOR
 )
 from lowlevel.led_libs.utils.bit24_to_3_bit8 import bit24_to_3_bit8
 from lowlevel.led_libs.utils.stoppable_thread import StoppableThread
@@ -20,17 +22,15 @@ from lowlevel.led_libs.utils.core_actions import fill_colors, color_wipe
 from lowlevel.led_libs.threads.ClockThread import ClockThread
 from lowlevel.led_libs.threads.TransitionThread import TransitionThread
 
-CLOCK_BACKGROUND_COLOR = "0,0,1"
-CLOCK_FOREGROUND_COLOR = "255,0,0"
 
 class StripActions:
     def wipe_clear(self, strip):
         color_wipe(strip, Color(0, 0, 0))
 
-    def fill(self, strip, r, g, b):
+    def fill(self, strip, r=0, g=0, b=0):
         color_wipe(strip, Color(r, g, b))
 
-    def transition_to_color(self, strip, r, g, b, steps=100, timestep=20):
+    def transition_to_color(self, strip, **kwargs):
         """
         Transition all leds to a color
         :param r: red value 8-bit int
@@ -39,16 +39,7 @@ class StripActions:
         :param steps: number of steps in transition
         :param timestep: time that one step takes in ms
         """
-        transition = TransitionThread(
-            strip,
-            kwargs={
-                r,
-                g,
-                b,
-                steps,
-                timestep
-            }
-                    )
+        transition = TransitionThread(strip, **kwargs)
         transition.start()
         return transition
 
@@ -57,10 +48,7 @@ class StripActions:
         fg_color = Color(fg["r"], fg["g"], fg["b"])
         bg_color = Color(bg["r"], bg["g"], bg["b"])
 
-        clock = ClockThread(strip, kwargs={
-            "fg_color": fg_color,
-            "bg_color": bg_color
-        })
+        clock = ClockThread(strip, fg_color=fg_color, bg_color=bg_color)
         clock.start()
         return clock
 

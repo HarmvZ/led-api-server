@@ -27,6 +27,10 @@ NUMBERS = {
 MATRIX_WIDTH = 30
 MATRIX_HEIGHT = 10
 
+# Default clock colors
+CLOCK_BACKGROUND_COLOR = {"r": 0, "g": 0, "b": 0}
+CLOCK_FOREGROUND_COLOR = {"r": 255, "g": 0, "b": 0}
+
 
 # Spoken information settings
 #########################

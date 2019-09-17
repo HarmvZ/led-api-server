@@ -133,6 +133,3 @@ CLOCK_STOP_COMMAND = "sudo kill $(ps aux | grep 'show_clock.py' | awk '{print $2
 STORY_STOP_COMMAND = "sudo kill $(ps aux | grep 'story.mp3' | awk '{print $2}')"
 
 
-# Default clock colors
-CLOCK_BACKGROUND_COLOR = {"r": 0, "g": 0, "b": 0}
-CLOCK_FOREGROUND_COLOR = {"r": 255, "g": 0, "b": 0}

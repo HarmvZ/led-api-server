@@ -9,13 +9,15 @@ from lowlevel.led_libs.settings import (
 )
 
 class ClockThread(StoppableThread):
-    def run(self):
-        fg_color = self.kwargs['fg_color']
-        bg_color = self.kwargs['bg_color']
+    def __init__(self, strip, **kwargs):
+        super().__init__(strip)
+        self.fg_color = kwargs["fg_color"]
+        self.bg_color = kwargs["bg_color"]
 
+    def run(self):
         while not self.stopped():
             matrix = self.create_binary_time_matrix()
-            self.write_matrix_to_strip(self.strip, matrix, fg_color, bg_color)
+            self.write_matrix_to_strip(self.strip, matrix, self.fg_color, self.bg_color)
             time.sleep(.9)
 
     @staticmethod

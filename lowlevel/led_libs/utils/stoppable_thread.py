@@ -6,11 +6,10 @@ class StoppableThread(threading.Thread):
     https://stackoverflow.com/a/325528
     """
 
-    def __init__(self, strip, kwargs={}):
+    def __init__(self, strip):
         super(StoppableThread, self).__init__()
         self._stop_event = threading.Event()
         self.strip = strip
-        self.kwargs = kwargs
 
     def stop(self):
         self._stop_event.set()
