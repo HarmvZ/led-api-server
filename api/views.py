@@ -10,14 +10,10 @@ from lowlevel.led_libs.led_control import LedControl
 def base_view(request):
     return JsonResponse({"Bla":"bla"},status=200)
 
-def abstract_view(request, fn_name, Serializer, arg_keys=[], kwarg_keys=[]):
+def abstract_view(request, fn_name, Serializer, kwarg_keys=[]):
     success = False
     serializer = Serializer(data=request.data)
     if serializer.is_valid():
-        args = []
-        for arg_key in arg_keys:
-            args.append(serializer.data[arg_key])
-
         kwargs = {}
         for kwarg_key in kwarg_keys:
             kwargs.update({
@@ -44,8 +40,7 @@ def transition_color(request):
         request, 
         "transition_to_color", 
         TransitionColorSerializer, 
-        ["r", "g", "b"], 
-        ["steps", "timestep"]
+        ["r", "g", "b", "steps", "timestep"]
     )
     
 @api_view(["POST"])
