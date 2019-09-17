@@ -27,3 +27,9 @@ class TransitionColorSerializer(ColorSerializer):
 class ClockSerializer(serializers.Serializer):
     fg = ColorSerializer(required=False, default=CLOCK_FOREGROUND_COLOR)
     bg = ColorSerializer(required=False, default=CLOCK_BACKGROUND_COLOR)
+
+class AnimationSerializer(serializers.Serializer):
+    animation = serializers.ChoiceField(
+        choices=["rainbow", "rainbowCycle", "theaterChaseRainbow"]
+    )
+    wait_ms = serializers.IntegerField(min_value=1, required=False, default=20)

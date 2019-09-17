@@ -21,6 +21,7 @@ from lowlevel.led_libs.utils.stoppable_thread import StoppableThread
 from lowlevel.led_libs.utils.core_actions import fill_colors, color_wipe
 from lowlevel.led_libs.threads.ClockThread import ClockThread
 from lowlevel.led_libs.threads.TransitionThread import TransitionThread
+from lowlevel.led_libs.threads.AnimationThread import AnimationThread
 
 
 class StripActions:
@@ -51,4 +52,14 @@ class StripActions:
         clock = ClockThread(strip, fg_color=fg_color, bg_color=bg_color)
         clock.start()
         return clock
+
+
+    def animation(self, strip, animation, wait_ms):
+        """Movie theater light style chaser animation."""
+        animation = AnimationThread(strip, animation, wait_ms)
+        animation.start()
+        return animation                            
+ 
+
+
 
