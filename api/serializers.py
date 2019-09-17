@@ -1,5 +1,8 @@
 from rest_framework import serializers
-from django.conf import settings
+from lowlevel.led_libs.settings import (
+    CLOCK_FOREGROUND_COLOR,
+    CLOCK_BACKGROUND_COLOR
+)
 
 class ColorSerializer(serializers.Serializer):
     r = serializers.IntegerField(min_value=0, max_value=255)
@@ -22,5 +25,5 @@ class TransitionColorSerializer(ColorSerializer):
 
 
 class ClockSerializer(serializers.Serializer):
-    fg = ColorSerializer(required=False, default=settings.CLOCK_FOREGROUND_COLOR)
-    bg = ColorSerializer(required=False, default=settings.CLOCK_BACKGROUND_COLOR)
+    fg = ColorSerializer(required=False, default=CLOCK_FOREGROUND_COLOR)
+    bg = ColorSerializer(required=False, default=CLOCK_BACKGROUND_COLOR)
