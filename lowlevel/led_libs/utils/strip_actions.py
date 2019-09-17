@@ -18,6 +18,7 @@ from lowlevel.led_libs.utils.bit24_to_3_bit8 import bit24_to_3_bit8
 from lowlevel.led_libs.utils.stoppable_thread import StoppableThread
 from lowlevel.led_libs.utils.core_actions import fill_colors, color_wipe
 from lowlevel.led_libs.threads.ClockThread import ClockThread
+from lowlevel.led_libs.threads.TransitionThread import TransitionThread
 
 CLOCK_BACKGROUND_COLOR = "0,0,1"
 CLOCK_FOREGROUND_COLOR = "255,0,0"
@@ -38,27 +39,16 @@ class StripActions:
         :param steps: number of steps in transition
         :param timestep: time that one step takes in ms
         """
-        class TransitionThread(StoppableThread):
-            def run(self):
-                num_leds = self.strip.numPixels()
-                # get current colors and calculate difference with new color
-                current_colors = np.zeros((num_leds, 3))
-                color_deltas = np.zeros((num_leds, 3))
-                for i in range(num_leds):
-                    current_colors[i] = bit24_to_3_bit8(self.strip.getPixelColor(i))
-                    color_deltas[i] = current_colors[i] - np.array([r, g, b])
-                    if self.stopped():
-                        return
-
-                for i in range(steps):
-                    new_colors = (current_colors - color_deltas / (steps - 1) * i).astype(
-                        int
+        transition = TransitionThread(
+            strip,
+            kwargs={
+                r,
+                g,
+                b,
+                steps,
+                timestep
+            }
                     )
-                    fill_colors(self.strip, new_colors)
-                    time.sleep(timestep / 1000)
-                    if self.stopped():
-                        return
-        transition = TransitionThread(strip)
         transition.start()
         return transition
 
