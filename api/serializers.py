@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from django.conf import settings
 
 class ColorSerializer(serializers.Serializer):
     r = serializers.IntegerField(min_value=0, max_value=255)
@@ -19,3 +20,7 @@ class TransitionColorSerializer(ColorSerializer):
     steps = serializers.IntegerField(min_value=1, required=False, default=100)
     timestep = serializers.IntegerField(min_value=1, required=False, default=20)
 
+
+class ClockSerializer(serializers.Serializer):
+    fg = ColorSerializer(required=False, default=settings.CLOCK_FOREGROUND_COLOR)
+    bg = ColorSerializer(required=False, default=settings.CLOCK_BACKGROUND_COLOR)

@@ -2,7 +2,7 @@ from django.http import HttpResponse, JsonResponse
 from rest_framework.decorators import api_view
 from django.views.decorators.csrf import csrf_exempt
 
-from api.serializers import ColorSerializer, TransitionColorSerializer
+from api.serializers import ColorSerializer, TransitionColorSerializer, ClockSerializer
 from lowlevel.led_libs.led_control import LedControl
 
 # Create your views here.
@@ -53,7 +53,6 @@ def show_clock(request):
     return abstract_view(
         request, 
         "show_time", 
-        TransitionColorSerializer, 
-        ["r", "g", "b"], 
-        ["steps", "timestep"]
+        ClockSerializer, 
+        ["fg", "bg"]
     )

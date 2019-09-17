@@ -118,13 +118,15 @@ class StripActions:
 
         return matrix
 
-    def show_time(self, strip, fg=CLOCK_FOREGROUND_COLOR, bg=CLOCK_BACKGROUND_COLOR):
+    def show_time(self, strip, fg, bg):
+        fg_color = Color(fg["r"], fg["g"], fg["b"])
+        bg_color = Color(bg["r"], bg["g"], bg["b"])
         this = self
         class ClockThread(StoppableThread):
             def run(self):
                 while not self.stopped():
                     matrix = this.create_binary_time_matrix()
-                    this.write_matrix_to_strip(strip, matrix, fg, bg)
+                    this.write_matrix_to_strip(strip, matrix, fg_color, bg_color)
                     time.sleep(.9)
         clock = ClockThread()
         clock.start()
