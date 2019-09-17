@@ -29,7 +29,7 @@ class LedControl:
             self.thread = None
             self.strip_actions = StripActions()
 
-        def strip_action(self, name, *args, **kwargs):
+        def strip_action(self, name, **kwargs):
             if (
                 issubclass(type(self.thread), StoppableThread) 
                 and self.thread.is_alive() 
@@ -37,7 +37,7 @@ class LedControl:
             ):
                 self.thread.stop()
                 self.thread.join()
-            self.thread = getattr(self.strip_actions, name)(self.strip, *args, **kwargs)
+            self.thread = getattr(self.strip_actions, name)(self.strip, **kwargs)
 
     instance = None
 

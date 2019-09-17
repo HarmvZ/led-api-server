@@ -20,7 +20,7 @@ def abstract_view(request, fn_name, Serializer, kwarg_keys=[]):
                 kwarg_key: serializer.data[kwarg_key]
             })
         lc = LedControl()
-        lc.strip_action(fn_name, *args, **kwargs)
+        lc.strip_action(fn_name, **kwargs)
         success = True
     status = 200 if success else 400
     return JsonResponse({ "success": success }, status=status)
