@@ -74,18 +74,18 @@ class CronJobModel(models.Model):
             # Delete instance?
             raise ValidationError("Cronjob is not valid")
 
-    @property
-    def human_readable_time(self):
-        # Explicitly set locale
-        locale.setlocale(locale.LC_ALL, settings.CRONTAB_TIME_LOCALE)
-        return get_description(
-            "{} {} {} {} {}".format(
-                self.minute, self.hour, self.day, self.month, self.day_of_week
-            )
-        )
     class Meta:
         abstract = True
 
 class Alarm(CronJobModel):
     name = models.CharField(max_length=255, default="Naamloos alarm")
 
+    # @property
+    # def human_readable_time(self):
+    #     # Explicitly set locale
+    #     locale.setlocale(locale.LC_ALL, settings.CRONTAB_TIME_LOCALE)
+    #     return get_description(
+    #         "{} {} {} {} {}".format(
+    #             self.minute, self.hour, self.day, self.month, self.day_of_week
+    #         )
+    #     )
