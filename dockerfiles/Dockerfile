@@ -9,5 +9,4 @@ RUN python3 -m virtualenv --python=/usr/bin/python3 $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/BIN:$PATH"
 
 # Install python dependencies
-RUN python3 -m pip install -U pip && python3 -m pip install -r /home/pi/app/requirements.txt && python3 -m pip install setuptools
-RUN cd /home/pi && git clone --recurse-submodules https://github.com/HarmvZ/rpi-ws281x-python.git && cd rpi-ws281x-python/library && python3 -m pip install .
+RUN python3 -m pip install -U pip && python3 -m pip install setuptools && python3 -m pip install -r /home/pi/app/requirements.txt 

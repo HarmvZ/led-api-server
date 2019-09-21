@@ -16,7 +16,8 @@ python-crontab==2.3.8
 python-dateutil==2.8.0
 pytz==2019.1
 requests==2.22.0
-rpi-ws281x==4.2.2
+# rpi-ws281x==4.2.2
+rpi_ws281x_mock
 six==1.12.0
 soupsieve==1.9.3
 sqlparse==0.3.0
