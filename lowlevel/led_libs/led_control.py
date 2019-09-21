@@ -1,6 +1,6 @@
 import time
 import numpy as np
-from rpi_ws281x import Adafruit_NeoPixel, Color
+from rpi_ws281x import PixelStrip, Color
 from subprocess import Popen
 from . import settings
 from pathlib import Path
@@ -14,7 +14,7 @@ class LedControl:
     class __LedControl:
         def __init__(self):
             # Create NeoPixel object with appropriate configuration.
-            self.strip = Adafruit_NeoPixel(
+            self.strip = PixelStrip(
                 settings.LED_COUNT,
                 settings.LED_PIN,
                 settings.LED_FREQ_HZ,
