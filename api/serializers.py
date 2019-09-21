@@ -1,8 +1,26 @@
 from rest_framework import serializers
+
+from lowlevel.models import Alarm
 from lowlevel.led_libs.settings import (
     CLOCK_FOREGROUND_COLOR,
     CLOCK_BACKGROUND_COLOR
 )
+
+class AlarmSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Alarm
+        fields = [
+            'pk', 
+            'enabled', 
+            'minute', 
+            'hour', 
+            'day', 
+            'month',
+            'day_of_week',
+            'cronjob',
+            # 'human_readable_time',
+            'name'
+        ]
 
 class ColorSerializer(serializers.Serializer):
     r = serializers.IntegerField(min_value=0, max_value=255)

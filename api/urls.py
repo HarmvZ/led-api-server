@@ -1,7 +1,13 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+
 from api import views
 
+router = DefaultRouter()
+router.register('alarms', views.AlarmViewSet)
+
 urlpatterns = [
+    path('', include(router.urls)),
     path('base/', views.base_view),
     path('get_pixels/', views.get_pixels),
     path('set_color/', views.set_color),

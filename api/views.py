@@ -1,14 +1,22 @@
 from django.http import HttpResponse, JsonResponse
 from rest_framework.decorators import api_view
 from django.views.decorators.csrf import csrf_exempt
+from rest_framework import viewsets
 
-from api.serializers import ColorSerializer, TransitionColorSerializer, ClockSerializer, AnimationSerializer
+from lowlevel.models import Alarm
+from api.serializers import ColorSerializer, TransitionColorSerializer, ClockSerializer, AnimationSerializer, AlarmSerializer
 from lowlevel.led_libs.led_control import LedControl
 
 # Create your views here.
 @csrf_exempt
 def base_view(request):
     return JsonResponse({"Bla":"bla"},status=200)
+
+
+class AlarmViewSet(viewsets.ModelViewSet):
+    queryset = Alarm.objects.all()
+    serializer_class = AlarmSerializer
+
 
 @api_view(["GET"])
 def get_pixels(request):
