@@ -14,11 +14,7 @@ class AlarmSerializer(serializers.ModelSerializer):
             'enabled', 
             'minute', 
             'hour', 
-            'day', 
-            'month',
             'day_of_week',
-            'cronjob',
-            # 'human_readable_time',
             'name'
         ]
 
