@@ -2,13 +2,13 @@ import locale
 from uuid import uuid4
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.conf import settings
 from crontab import CronTab, CronSlices
-from leds.settings import ALARM_CRONTAB_COMMAND
 from cron_descriptor import get_description
 
 
-class Alarm(models.Model):
-    name = models.CharField(max_length=255, default="Naamloos alarm")
+class CronJobModel(models.Model):
+    command = models.CharField(max_length=255, default=settings.CRONTAB_DEFAULT_COMMAND)
     enabled = models.BooleanField(default=True)
     minute = models.CharField(max_length=255)
     hour = models.CharField(max_length=255)
@@ -31,7 +31,7 @@ class Alarm(models.Model):
         else:
             raise ValidationError("Time values are not valid for a cronjob")
 
-        return super(Alarm, self).full_clean(*args, **kwargs)
+        return super(CronJobModel, self).full_clean(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
         job, cron = self.get_related_cronjob()
@@ -55,7 +55,7 @@ class Alarm(models.Model):
             cron = CronTab(user=True)
             # New Alarm
             uuid = str(uuid4())
-            job = cron.new(command=ALARM_CRONTAB_COMMAND, comment=uuid)
+            job = cron.new(command=self.command, comment=uuid)
         else:
             # Existing alarm
             job, cron = self.get_related_cronjob()
@@ -76,10 +76,16 @@ class Alarm(models.Model):
 
     @property
     def human_readable_time(self):
-        # Explicitly set locale to NL
-        locale.setlocale(locale.LC_ALL, "nl_NL.utf-8")
+        # Explicitly set locale
+        locale.setlocale(locale.LC_ALL, settings.CRONTAB_TIME_LOCALE)
         return get_description(
             "{} {} {} {} {}".format(
                 self.minute, self.hour, self.day, self.month, self.day_of_week
             )
         )
+    class Meta:
+        abstract = True
+
+class Alarm(CronJobModel):
+    name = models.CharField(max_length=255, default="Naamloos alarm")
+

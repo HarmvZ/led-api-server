@@ -120,6 +120,10 @@ STATIC_URL = "/static/"
 # Allow cross-site requests
 CORS_ORIGIN_ALLOW_ALL = True
 
+CRONTAB_TIME_LOCALE= "nl_NL.utf-8"
+CRONTAB_DEFAULT_COMMAND = "sudo python3 {}".format(
+    os.path.join(BASE_DIR, "lowlevel/led_libs/start_alarm.py")
+)
 
 # Shell commands
 ALARM_CRONTAB_COMMAND = "sudo python3 {}".format(
