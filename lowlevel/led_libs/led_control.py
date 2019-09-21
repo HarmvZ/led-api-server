@@ -38,6 +38,7 @@ class LedControl:
                 self.thread.stop()
                 self.thread.join()
             self.thread = getattr(self.strip_actions, name)(self.strip, **kwargs)
+            return self.thread
 
     instance = None
 

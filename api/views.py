@@ -10,6 +10,13 @@ from lowlevel.led_libs.led_control import LedControl
 def base_view(request):
     return JsonResponse({"Bla":"bla"},status=200)
 
+@api_view(["GET"])
+def get_pixels(request):
+    lc = LedControl()
+    pixels = lc.strip_action("get_pixels")
+    return JsonResponse({"pixels": pixels}, status=200)
+
+
 def abstract_view(request, fn_name, Serializer, kwarg_keys=[]):
     success = False
     serializer = Serializer(data=request.data)

@@ -30,6 +30,9 @@ class StripActions:
 
     def fill(self, strip, r=0, g=0, b=0):
         color_wipe(strip, Color(r, g, b))
+    
+    def get_pixels(self, strip):
+        return strip.getPixels()
 
     def transition_to_color(self, strip, **kwargs):
         """
