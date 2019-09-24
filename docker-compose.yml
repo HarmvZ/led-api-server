@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: ./dockerfiles/Dockerfile
     ports:
-      - "80:8000"
+      - "888:8000"
     volumes:
       - type: bind
         source: .
@@ -14,5 +14,5 @@ services:
       bash -c "
       cd /home/pi/app
       && python3 manage.py migrate
-      && python3 manage.py runserver 0.0.0.0:8000
+      && python3 manage.py runserver 0.0.0.0:8000 
       "
