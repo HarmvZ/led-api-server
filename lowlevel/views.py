@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404, redirect
 from .models import Alarm
 from .led_libs.led_control import LedControl
 from .led_libs.wake_up_story import WakeUpStory
-from leds.settings import ALARM_CRONTAB_COMMAND, CLOCK_STOP_COMMAND, STORY_STOP_COMMAND
+from django.conf import settings
 
 
 class IndexView(generic.ListView):
@@ -188,7 +188,7 @@ class WakeUpLightView(View):
             )
         if action == "stop":
             # Kill all start_alarm.py scripts
-            Popen(ALARM_STOP_COMMAND, stdin=PIPE, stdout=PIPE, stderr=PIPE, shell=True)
+            Popen(settings.ALARM_STOP_COMMAND, stdin=PIPE, stdout=PIPE, stderr=PIPE, shell=True)
 
         return HttpResponse(action + " alarm")
 
@@ -203,6 +203,6 @@ class WakeUpStoryView(View):
             ws.play()
         if action == "stop":
             # Kill all start_alarm.py scripts
-            Popen(STORY_STOP_COMMAND, stdin=PIPE, stdout=PIPE, stderr=PIPE, shell=True)
+            Popen(settings.STORY_STOP_COMMAND, stdin=PIPE, stdout=PIPE, stderr=PIPE, shell=True)
 
         return HttpResponse(action + " story")
