@@ -4,7 +4,6 @@ from rpi_ws281x import PixelStrip, Color
 from subprocess import Popen
 from . import settings
 from pathlib import Path
-from leds.settings import CLOCK_START_COMMAND
 from lowlevel.led_libs.utils.stoppable_thread import StoppableThread
 from lowlevel.led_libs.utils.strip_actions import StripActions
 
