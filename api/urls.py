@@ -8,7 +8,7 @@ router.register('alarms', views.AlarmViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('base/', views.base_view),
+    path('status/', views.status_view),
     path('get_pixels/', views.get_pixels),
     path('set_color/', views.set_color),
     path('transition_color/', views.transition_color),

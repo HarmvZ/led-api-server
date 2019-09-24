@@ -9,8 +9,8 @@ from lowlevel.led_libs.led_control import LedControl
 
 # Create your views here.
 @csrf_exempt
-def base_view(request):
-    return JsonResponse({"Bla":"bla"},status=200)
+def status_view(request):
+    return HttpResponse("" ,status=200)
 
 
 class AlarmViewSet(viewsets.ModelViewSet):
