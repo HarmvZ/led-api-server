@@ -1,7 +1,8 @@
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, Http404
 from rest_framework.decorators import api_view
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets
+from rest_framework.decorators import action
 
 from lowlevel.models import Alarm
 from api.serializers import ColorSerializer, TransitionColorSerializer, ClockSerializer, AnimationSerializer, AlarmSerializer
@@ -17,6 +18,14 @@ class AlarmViewSet(viewsets.ModelViewSet):
     queryset = Alarm.objects.all()
     serializer_class = AlarmSerializer
 
+    @action(detail=False, methods=['get'])
+    def first_upcoming_alarm(self, request):
+        alarms = Alarm.objects.filter(enabled=True)
+        if len(alarms) == 0:
+            return Http404
+        alarms = sorted(alarms, key=lambda m: m.first_upcoming_datetime)
+        serializer = self.get_serializer(alarms[0])
+        return JsonResponse(serializer.data)
 
 @api_view(["GET"])
 def get_pixels(request):
