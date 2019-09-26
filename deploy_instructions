@@ -1,0 +1,86 @@
+# Install uWSGI nginx and configure django backend
+# follow https://www.digitalocean.com/community/tutorials/how-to-serve-django-applications-with-uwsgi-and-nginx-on-debian-8
+# install uwsgi
+
+sudo apt-get install -y build-essential python3-dev
+sudo python3 -m pip install uwsgi
+sudo mkdir -p /etc/uwsgi/sites
+sudo nano /etc/uwsgi/sites/lsac.ini
+
+# [uwsgi]
+# project = lsac
+# base = /media/usb
+# homedir = /home/pi
+# chdir = %(base)/%(project)
+# home = %(homedir)/Env/%(project)
+# module = leds.wsgi:application
+# master = true
+# processes = 2
+# socket = /run/uwsgi/%(project).sock
+# chmod-socket = 666
+# vacuum = true
+
+
+sudo nano /etc/systemd/system/uwsgi.service
+# [Unit]
+# Description=uWSGI Emperor service
+
+# [Service]
+# ExecStartPre=/bin/bash -c 'mkdir -p /run/uwsgi; chown pi:www-data /run/uwsgi'
+# ExecStart=/usr/local/bin/uwsgi --emperor /etc/uwsgi/sites
+# Restart=always
+# KillSignal=SIGQUIT
+# Type=notify
+# NotifyAccess=all
+
+# [Install]
+# WantedBy=multi-user.target
+
+sudo apt-get install -y nginx
+sudo nano /etc/nginx/sites-available/lsac
+# server {
+#     listen 8888;
+#     # server_name firstsite.com www.firstsite.com;
+
+#     location = /favicon.ico { access_log off; log_not_found off; }
+#     # location /static/ {
+#     #     root /media/usb/lsac;
+#     # }
+
+#     location / {
+#         include         uwsgi_params;
+#         uwsgi_pass      unix:/run/uwsgi/lsac.sock;
+#     }
+# }
+
+sudo ln -s /etc/nginx/sites-available/lsac /etc/nginx/sites-enabled
+# remove default site
+sudo rm /etc/nginx/sites-enabled/default
+# reset services
+sudo systemctl restart nginx
+sudo systemctl start uwsgi
+# enable services on startup 
+sudo systemctl enable nginx
+sudo systemctl enable uwsgi
+
+
+
+# Set up django site
+sudo apt-get update && sudo apt-get dist-upgrade
+sudo pip3 install virtualenv virtualenvwrapper
+echo "export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3" >> ~/.bashrc
+echo "export WORKON_HOME=~/Env" >> ~/.bashrc
+echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc
+source ~/.bashrc
+mkvirtualenv lsac
+cd /media/usb/
+sudo git clone https://github.com/HarmvZ/led-sunrise-alarm-clock.git lsac
+cd lsac
+pip install -r requirements/production.txt
+./manage.py migrate
+
+
+
+# Update etc
+# Activate virtualenv:
+workon lsac
