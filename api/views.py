@@ -7,6 +7,7 @@ from rest_framework.decorators import action
 from lowlevel.models import Alarm
 from api.serializers import ColorSerializer, TransitionColorSerializer, ClockSerializer, AnimationSerializer, AlarmSerializer
 from lowlevel.led_libs.led_control import LedControl
+from lowlevel.led_libs.utils.bit24_to_3_bit8 import bit24_to_3_bit8
 
 # Create your views here.
 @csrf_exempt
@@ -31,7 +32,8 @@ class AlarmViewSet(viewsets.ModelViewSet):
 def get_pixels(request):
     lc = LedControl()
     pixels = lc.strip_action("get_pixels")
-    return JsonResponse({"pixels": pixels}, status=200)
+    pixels_rgb = [bit24_to_3_bit8(c) for c in pixels]
+    return JsonResponse({"pixels": pixels_rgb}, status=200)
 
 
 def abstract_view(request, fn_name, Serializer, kwarg_keys=[]):
