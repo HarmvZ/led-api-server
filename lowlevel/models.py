@@ -1,9 +1,11 @@
 import locale
 from uuid import uuid4
+from datetime import datetime
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.conf import settings
 from crontab import CronTab, CronSlices
+from croniter import croniter
 
  
 class CronJobModel(models.Model):
@@ -84,3 +86,10 @@ class CronJobModel(models.Model):
 
 class Alarm(CronJobModel):
     name = models.CharField(max_length=255, default="Naamloos alarm")
+
+    @property
+    def first_upcoming_datetime(self):
+        croni = croniter(self.cron_time)
+        return croni.get_next(datetime)
+
+        
