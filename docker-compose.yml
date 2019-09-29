@@ -1,6 +1,13 @@
 version: '3.2'
 services:
-  rpi:
+  rpi_prod:
+    build:
+      context: .
+      dockerfile: ./deploy/Dockerfile
+    ports:
+      - "8888:8888"
+      
+  rpi_dev:
     build:
       context: .
       dockerfile: ./dockerfiles/Dockerfile
@@ -16,3 +23,5 @@ services:
       && python3 manage.py migrate
       && python3 manage.py runserver 0.0.0.0:8000 
       "
+  
+  
