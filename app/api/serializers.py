@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
-from lowlevel.models import Alarm
-from lowlevel.led_libs.settings import (
+from alarms.models import Alarm
+from alarms.led_libs.settings import (
     CLOCK_FOREGROUND_COLOR,
     CLOCK_BACKGROUND_COLOR
 )

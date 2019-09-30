@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('lowlevel', '0003_alarm_cronjob'),
+        ('alarms', '0003_alarm_cronjob'),
     ]
 
     operations = [

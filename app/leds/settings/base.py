@@ -29,7 +29,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "corsheaders",
     "rest_framework",
-    "lowlevel",
+    "alarms",
 ]
 
 MIDDLEWARE = [
@@ -91,18 +91,11 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 CRONTAB_TIME_LOCALE= "nl_NL.utf-8"
 CRONTAB_DEFAULT_COMMAND = "sudo python3 {}".format(
-    os.path.join(BASE_DIR, "lowlevel/led_libs/start_alarm.py")
+    os.path.join(BASE_DIR, "alarms/led_libs/start_alarm.py")
 )
 
 # Shell commands
 ALARM_CRONTAB_COMMAND = "sudo python3 {}".format(
-    os.path.join(BASE_DIR, "lowlevel/led_libs/start_alarm.py")
+    os.path.join(BASE_DIR, "alarms/led_libs/start_alarm.py")
 )
 ALARM_STOP_COMMAND = "sudo kill $(ps aux | grep 'start_alarm.py' | awk '{print $2}')"
-CLOCK_START_COMMAND = "exec sudo python3 {}".format(
-    os.path.join(BASE_DIR, "lowlevel/led_libs/show_clock.py")
-)
-CLOCK_STOP_COMMAND = "sudo kill $(ps aux | grep 'show_clock.py' | awk '{print $2}')"
-STORY_STOP_COMMAND = "sudo kill $(ps aux | grep 'story.mp3' | awk '{print $2}')"
-
-

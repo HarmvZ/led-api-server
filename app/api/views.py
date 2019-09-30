@@ -4,10 +4,10 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets
 from rest_framework.decorators import action
 
-from lowlevel.models import Alarm
+from alarms.models import Alarm
 from api.serializers import ColorSerializer, TransitionColorSerializer, ClockSerializer, AnimationSerializer, AlarmSerializer
-from lowlevel.led_libs.led_control import LedControl
-from lowlevel.led_libs.utils.bit24_to_3_bit8 import bit24_to_3_bit8
+from alarms.led_libs.led_control import LedControl
+from alarms.led_libs.utils.bit24_to_3_bit8 import bit24_to_3_bit8
 from api.zmq_client import ZMQClient
 
 # Create your views here.

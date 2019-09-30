@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('lowlevel', '0004_auto_20190209_2118'),
+        ('alarms', '0004_auto_20190209_2118'),
     ]
 
     operations = [
         migrations.AddField(
             model_name='alarm',
             name='command',
-            field=models.CharField(default='sudo python3 /home/pi/app/lowlevel/led_libs/start_alarm.py', max_length=255),
+            field=models.CharField(default='sudo python3 /home/pi/app/alarms/led_libs/start_alarm.py', max_length=255),
         ),
     ]
