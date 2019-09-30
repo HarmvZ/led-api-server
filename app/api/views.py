@@ -8,6 +8,7 @@ from lowlevel.models import Alarm
 from api.serializers import ColorSerializer, TransitionColorSerializer, ClockSerializer, AnimationSerializer, AlarmSerializer
 from lowlevel.led_libs.led_control import LedControl
 from lowlevel.led_libs.utils.bit24_to_3_bit8 import bit24_to_3_bit8
+from api.zmq_client import ZMQClient
 
 # Create your views here.
 @csrf_exempt
@@ -30,8 +31,8 @@ class AlarmViewSet(viewsets.ModelViewSet):
 
 @api_view(["GET"])
 def get_pixels(request):
-    lc = LedControl()
-    pixels = lc.strip_action("get_pixels")
+    zmqc = ZMQClient()
+    pixels = zmqc.perform_request("get_pixels")
     pixels_rgb = [bit24_to_3_bit8(c) for c in pixels]
     return JsonResponse({"pixels": pixels_rgb}, status=200)
 
@@ -45,8 +46,8 @@ def abstract_view(request, fn_name, Serializer, kwarg_keys=[]):
             kwargs.update({
                 kwarg_key: serializer.data[kwarg_key]
             })
-        lc = LedControl()
-        lc.strip_action(fn_name, **kwargs)
+        zmqc = ZMQClient()
+        zmqc.perform_request(fn_name, **kwargs)
         success = True
     status = 200 if success else 400
     return JsonResponse({ "success": success }, status=status)
