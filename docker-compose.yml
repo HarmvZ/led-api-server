@@ -1,4 +1,4 @@
-version: '3.2'
+version: '3.7'
 services:
   rpi_prod:
     build:
@@ -12,16 +12,14 @@ services:
       context: .
       dockerfile: ./dockerfiles/Dockerfile
     ports:
-      - "888:8000"
+      - "8888:8000"
     volumes:
       - type: bind
-        source: .
-        target: /home/pi/app/
+        source: ./app
+        target: /home/pi/app/app/
     command: >-
       bash -c "
-      cd /home/pi/app
+      cd /home/pi/app/app
       && python3 manage.py migrate
       && python3 manage.py runserver 0.0.0.0:8000 
       "
-  
-  
