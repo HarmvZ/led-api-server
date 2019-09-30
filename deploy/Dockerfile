@@ -26,6 +26,7 @@ RUN apt-get update && \
 	python3-pip \
 	nginx \
 	supervisor \
+	cron \
 	sqlite3 && \
 	pip3 install -U pip setuptools && \
    rm -rf /var/lib/apt/lists/*
@@ -46,10 +47,6 @@ RUN pip3 install -r /home/docker/code/production.txt
 
 # add (the rest of) our code
 COPY . /home/docker/code/
-
-# install django, normally you would remove this step because your project would already
-# be installed in the code/app/ directory
-RUN django-admin.py startproject website /home/docker/code/app/
 
 EXPOSE 8888
 CMD ["supervisord", "-n"]
