@@ -92,10 +92,14 @@ CORS_ORIGIN_ALLOW_ALL = True
 CRONTAB_TIME_LOCALE= "nl_NL.utf-8"
 CRONTAB_DEFAULT_COMMAND = "sudo python3 {}".format(
     os.path.join(BASE_DIR, "alarms/led_libs/start_alarm.py")
-)
+)#TODO replace 
 
 # Shell commands
 ALARM_CRONTAB_COMMAND = "sudo python3 {}".format(
     os.path.join(BASE_DIR, "alarms/led_libs/start_alarm.py")
-)
+)#TODO replace
 ALARM_STOP_COMMAND = "sudo kill $(ps aux | grep 'start_alarm.py' | awk '{print $2}')"
+
+# Default clock colors
+CLOCK_BACKGROUND_COLOR = {"r": 0, "g": 0, "b": 0}
+CLOCK_FOREGROUND_COLOR = {"r": 255, "g": 0, "b": 0}

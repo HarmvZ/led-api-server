@@ -1,10 +1,7 @@
 from rest_framework import serializers
 
 from alarms.models import Alarm
-from alarms.led_libs.settings import (
-    CLOCK_FOREGROUND_COLOR,
-    CLOCK_BACKGROUND_COLOR
-)
+from django.conf import settings
 
 class AlarmSerializer(serializers.ModelSerializer):
     class Meta:
@@ -39,8 +36,8 @@ class TransitionColorSerializer(ColorSerializer):
 
 
 class ClockSerializer(serializers.Serializer):
-    fg = ColorSerializer(required=False, default=CLOCK_FOREGROUND_COLOR)
-    bg = ColorSerializer(required=False, default=CLOCK_BACKGROUND_COLOR)
+    fg = ColorSerializer(required=False, default=settings.CLOCK_FOREGROUND_COLOR)
+    bg = ColorSerializer(required=False, default=settings.CLOCK_BACKGROUND_COLOR)
 
 class AnimationSerializer(serializers.Serializer):
     animation = serializers.ChoiceField(
