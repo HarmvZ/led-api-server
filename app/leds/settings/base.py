@@ -127,6 +127,11 @@ LOGGING = {
     }
 }
 
+# ZeroMQ Lazy Pirate settings
+REQUEST_TIMEOUT = 2500
+REQUEST_RETRIES = 3
+SERVER_ENDPOINT = "tcp://zmq:5566"
+
 
 CRONTAB_TIME_LOCALE= "nl_NL.utf-8"
 CRONTAB_DEFAULT_COMMAND = "sudo python3 {}".format(
