@@ -33,7 +33,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -90,41 +90,31 @@ USE_TZ = True
 CORS_ORIGIN_ALLOW_ALL = True
 
 
-# Set up file logging on production 
+# Set up file logging on production
 LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'filters': {
-        'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse'
-        }
-    },
-    'handlers': {
-        'apilogfile': {
-            'level':'DEBUG',
-            'class':'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(BASE_DIR, 'api.log'),
-            'maxBytes': 1024*1024*15, # 15MB
-            'backupCount': 10,
+    "version": 1,
+    "disable_existing_loggers": False,
+    "filters": {"require_debug_false": {"()": "django.utils.log.RequireDebugFalse"}},
+    "handlers": {
+        "apilogfile": {
+            "level": "DEBUG",
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": os.path.join(BASE_DIR, "api.log"),
+            "maxBytes": 1024 * 1024 * 15,  # 15MB
+            "backupCount": 10,
         },
-        'alarmslogfile': {
-            'level':'DEBUG',
-            'class':'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(BASE_DIR, 'alarms.log'),
-            'maxBytes': 1024*1024*15, # 15MB
-            'backupCount': 10,
+        "alarmslogfile": {
+            "level": "DEBUG",
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": os.path.join(BASE_DIR, "alarms.log"),
+            "maxBytes": 1024 * 1024 * 15,  # 15MB
+            "backupCount": 10,
         },
     },
-    'loggers': {
-        'api': {
-            'handlers': ['apilogfile',],
-            'level': 'DEBUG',
-        },
-        'alarms': {
-            'handlers': ['alarmslogfile',],
-            'level': 'DEBUG',
-        },
-    }
+    "loggers": {
+        "api": {"handlers": ["apilogfile"], "level": "DEBUG"},
+        "alarms": {"handlers": ["alarmslogfile"], "level": "DEBUG"},
+    },
 }
 
 # ZeroMQ Lazy Pirate settings
@@ -133,15 +123,14 @@ REQUEST_RETRIES = 3
 SERVER_ENDPOINT = "tcp://zmq:5566"
 
 
-CRONTAB_TIME_LOCALE= "nl_NL.utf-8"
-CRONTAB_DEFAULT_COMMAND = "sudo python3 {}".format(
+ALARM_COMMAND = "sudo python3 {}".format(
     os.path.join(BASE_DIR, "alarms/led_libs/start_alarm.py")
-)#TODO replace 
+)  # TODO replace
 
 # Shell commands
 ALARM_CRONTAB_COMMAND = "sudo python3 {}".format(
     os.path.join(BASE_DIR, "alarms/led_libs/start_alarm.py")
-)#TODO replace
+)  # TODO replace
 ALARM_STOP_COMMAND = "sudo kill $(ps aux | grep 'start_alarm.py' | awk '{print $2}')"
 
 # Default clock colors

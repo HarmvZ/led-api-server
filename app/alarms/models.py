@@ -7,9 +7,9 @@ from django.conf import settings
 from crontab import CronTab, CronSlices
 from croniter import croniter
 
- 
+
 class CronJobModel(models.Model):
-    command = models.CharField(max_length=255, default=settings.CRONTAB_DEFAULT_COMMAND)
+    command = models.CharField(max_length=255)
     enabled = models.BooleanField(default=True)
     minute = models.CharField(max_length=255)
     hour = models.CharField(max_length=255)
@@ -39,7 +39,7 @@ class CronJobModel(models.Model):
         self.validate_cronjob_times()
         job, cron = self.get_related_cronjob()
         job = self.set_cronjob_values(job)
-        self.validate_cronjob(job)       
+        self.validate_cronjob(job)
         cron.write()
         super().save(*args, **kwargs)
 
@@ -60,7 +60,7 @@ class CronJobModel(models.Model):
             cron = CronTab(user=True)
             self.cronjob = str(uuid4())
             job = cron.new(command=self.command, comment=self.cronjob)
-        else:        
+        else:
             cron = CronTab(user=True)
             job = None
             jobs = cron.find_comment(self.cronjob)
@@ -69,7 +69,7 @@ class CronJobModel(models.Model):
             if job is None:
                 raise ValueError("Cronjob for this model does not exist.")
         return job, cron
-    
+
     def set_cronjob_values(self, job):
         job.setall(self.minute, self.hour, self.day, self.month, self.day_of_week)
         job.enable(self.enabled)
@@ -80,16 +80,23 @@ class CronJobModel(models.Model):
         cron.remove(job)
         cron.write()
         super().delete(*args, **kwargs)
-     
+
     class Meta:
         abstract = True
 
+
 class Alarm(CronJobModel):
     name = models.CharField(max_length=255, default="Naamloos alarm")
+
+    def save(self, *args, **kwargs):
+        """
+        Sets correct command for cronjob on save
+        """
+        self.command = settings.ALARM_COMMAND
+        super().save(*args, **kwargs)
 
     @property
     def first_upcoming_datetime(self):
         croni = croniter(self.cron_time)
         return croni.get_next(datetime)
 
-        
