@@ -5,25 +5,31 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 
 from alarms.models import Alarm
-from api.serializers import ColorSerializer, TransitionColorSerializer, ClockSerializer, AnimationSerializer, AlarmSerializer
+from api.serializers import (
+    ColorSerializer,
+    TransitionColorSerializer,
+    ClockSerializer,
+    AnimationSerializer,
+    AlarmSerializer,
+)
 from api.utils import bit24_to_3_bit8
 from api.zmq_client import ZMQClient
 
 # Create your views here.
 @csrf_exempt
 def status_view(request):
-    return HttpResponse("" ,status=200)
+    return HttpResponse("", status=200)
 
 
 class AlarmViewSet(viewsets.ModelViewSet):
     queryset = Alarm.objects.all()
     serializer_class = AlarmSerializer
 
-    @action(detail=False, methods=['get'])
+    @action(detail=False, methods=["get"])
     def first_upcoming_alarm(self, request):
         alarms = Alarm.objects.filter(enabled=True)
         if len(alarms) == 0:
-            return Http404
+            return JsonResponse({})
         alarms = sorted(alarms, key=lambda m: m.first_upcoming_datetime)
         serializer = self.get_serializer(alarms[0])
         return JsonResponse(serializer.data)
