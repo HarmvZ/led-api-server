@@ -122,10 +122,7 @@ REQUEST_TIMEOUT = 2500
 REQUEST_RETRIES = 3
 SERVER_ENDPOINT = "tcp://zmq:5566"
 
-
-ALARM_COMMAND = "sudo python3 {}".format(
-    os.path.join(BASE_DIR, "alarms/led_libs/start_alarm.py")
-)  # TODO replace
+ALARM_COMMAND = "python3 {} startalarm".format(os.path.join(BASE_DIR, "manage.py"))
 
 # Shell commands
 ALARM_CRONTAB_COMMAND = "sudo python3 {}".format(
