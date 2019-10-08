@@ -17,8 +17,8 @@ FROM ubuntu:16.04
 # Install required packages and remove the apt packages cache when done.
 
 RUN apt-get update && \
-    apt-get upgrade -y && \ 	
-    apt-get install -y \
+	apt-get upgrade -y && \ 	
+	apt-get install -y \
 	git \
 	python3 \
 	python3-dev \
@@ -27,9 +27,14 @@ RUN apt-get update && \
 	nginx \
 	supervisor \
 	cron \
+	tzdata \
 	sqlite3 && \
 	pip3 install -U pip setuptools && \
-   rm -rf /var/lib/apt/lists/*
+	rm -rf /var/lib/apt/lists/*
+
+# set timezone
+ENV TZ=Europe/Amsterdam
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # install uwsgi now because it takes a little while
 RUN pip3 install uwsgi
