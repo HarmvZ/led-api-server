@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM ubuntu:16.04
+FROM ubuntu:16.04 as base-stage
 
 # Install required packages and remove the apt packages cache when done.
 
@@ -24,8 +24,6 @@ RUN apt-get update && \
 	python3-dev \
 	python3-setuptools \
 	python3-pip \
-	nginx \
-	supervisor \
 	cron \
 	tzdata \
 	sqlite3 && \
@@ -36,18 +34,28 @@ RUN apt-get update && \
 ENV TZ=Europe/Amsterdam
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-# install uwsgi now because it takes a little while
-RUN pip3 install uwsgi
+# COPY requirements.txt and RUN pip install BEFORE adding the rest of your code, this will cause Docker's caching mechanism
+# to prevent re-installing (all your) dependencies when you made a change a line or two in your app.
 
+COPY requirements /home/docker/code/
+
+
+
+From base-stage as develop-stage
+RUN pip3 install -r /home/docker/code/local.txt
+
+# add (the rest of) our code
+COPY . /home/docker/code/
+
+
+
+FROM base-stage as production-stage
 # setup all the configfiles
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 COPY deploy/nginx-app.conf /etc/nginx/sites-available/default
 COPY deploy/supervisor-app.conf /etc/supervisor/conf.d/
 
-# COPY requirements.txt and RUN pip install BEFORE adding the rest of your code, this will cause Docker's caching mechanism
-# to prevent re-installing (all your) dependencies when you made a change a line or two in your app.
 
-COPY requirements /home/docker/code/
 RUN pip3 install -r /home/docker/code/production.txt
 
 # add (the rest of) our code
